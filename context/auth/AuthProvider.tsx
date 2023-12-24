@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC, PropsWithChildren, useEffect, useReducer } from 'react';
 
 import { IUser } from '@/interfaces';
@@ -49,12 +51,11 @@ export const AuthProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
 
   const loginUser = async( email: string, password: string): Promise<boolean> => {
     try {
-      console.log('aqui');
       
-      // const { data } = await tesisApi.post('/login', { username: email, password });
+      const { data } = await tesisApi.post('/login', { email, password });
       // const { token, user } = data;
 
-      // console.log(data);
+      console.log(data);
       
 
       // Cookies.set('token', token);

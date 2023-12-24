@@ -1,10 +1,10 @@
 import { ValidAnteproyectoStatus } from "@/data/anteproyecto";
 
-export type STATUS_BADGE_TYPE = {style: string, name: ValidAnteproyectoStatus}
+export type STATUS_BADGE_TYPE = {id: number, style: string, name: ValidAnteproyectoStatus}
 
-const APROBADO: STATUS_BADGE_TYPE = {style: 'bg-green-100 text-green-800', name: 'aprobado'}
-const NO_APROBADO:STATUS_BADGE_TYPE = {style: 'bg-red-100 text-red-800', name: 'no aprobado'}
-const PENDIENTE: STATUS_BADGE_TYPE = {style: 'bg-amber-200 text-amber-800', name: 'pendiente'}
+const APROBADO: STATUS_BADGE_TYPE = {id: 0, style: 'bg-green-100 text-green-800', name: 'aprobado'}
+const NO_APROBADO:STATUS_BADGE_TYPE = {id: 1, style: 'bg-red-100 text-red-800', name: 'no aprobado'}
+const PENDIENTE: STATUS_BADGE_TYPE = {id: 2, style: 'bg-amber-200 text-amber-800', name: 'pendiente'}
 
 export const STATUS_BADGES = [
   APROBADO,

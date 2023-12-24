@@ -25,8 +25,8 @@ export const SearchProjectInput = ({ columnFilters, setColumnFilters }: Props) =
       </div>
       <input 
         type="text" 
-        className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-md w-80 bg-gray-50" 
-        placeholder="Buscar Anteproyecto" 
+        className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 hover:border-gray-400 outline-gray-400 rounded-md w-80 bg-gray-50" 
+        placeholder="Buscar Anteproyecto por Título" 
         value={(projectTitle ?? '') as string}
         onChange={(e: ChangeEvent<HTMLInputElement>) => onSearchInputChange({id: "titulo", value: e.target.value})}
       />

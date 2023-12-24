@@ -1,7 +1,8 @@
 'use client';
 
-import { AuthProvider } from '@/context';
 import React, { FC, PropsWithChildren } from 'react';
+
+import { AuthProvider } from '@/context';
 
 interface Props {
   children: JSX.Element | JSX.Element[];

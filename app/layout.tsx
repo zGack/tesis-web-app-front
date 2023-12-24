@@ -1,4 +1,3 @@
-import { Header } from '@/components/header'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Open_Sans, Roboto } from 'next/font/google'

@@ -20,10 +20,10 @@ export interface AnteproyectoTable {
   anteproyectoId:          string;
   noRadicacion:            string;
   titulo:                  string;
-  fechaEntregaAEvaluador:  string;
-  fechaEntregaDeEvaluador: string;
-  fechaCreacion:           string;
-  fechaAprobacion:         string;
+  fechaEntregaAEvaluador:  Date | undefined;
+  fechaEntregaDeEvaluador: Date | undefined;
+  fechaCreacion:           Date;
+  fechaAprobacion:         Date | undefined;
   noEntrega:               number;
   estado:                  number;
   autores:                 user[];
@@ -39,10 +39,10 @@ export const anteproyectoDataTable: AnteproyectoTable[] = [
     noRadicacion: "1224",
     noEntrega: 2,
     titulo: 'Sistema Gestor de Proyectos de Grado',
-    fechaEntregaAEvaluador: "2023-07-21",
-    fechaEntregaDeEvaluador: "2023-07-30",
-    fechaCreacion: "2023-06-15",
-    fechaAprobacion: "2023-09-15",
+    fechaEntregaAEvaluador: new Date("2023-07-21"),
+    fechaEntregaDeEvaluador: new Date("2023-07-30"),
+    fechaCreacion: new Date("2023-06-15"),
+    fechaAprobacion: new Date("2023-09-15"),
     estado: 1,
     autores: [
       {
@@ -116,10 +116,10 @@ export const anteproyectoDataTable: AnteproyectoTable[] = [
     noRadicacion: "1089",
     noEntrega: 3,
     titulo: 'Implementación de una aplicación web que facilite el uso de técnicas de reducción de casos de prueba del software',
-    fechaEntregaAEvaluador: "2023-07-21",
-    fechaEntregaDeEvaluador: "",
-    fechaCreacion: "2023-06-15",
-    fechaAprobacion: "",
+    fechaEntregaAEvaluador: new Date("2023-07-21"),
+    fechaEntregaDeEvaluador: undefined,
+    fechaCreacion: new Date("2023-06-15"),
+    fechaAprobacion: undefined,
     estado: 2,
     autores: [
       {
@@ -192,10 +192,10 @@ export const anteproyectoDataTable: AnteproyectoTable[] = [
     anteproyectoId: "1",
     noRadicacion: "00001",
     titulo: "Degree Project 1",
-    fechaCreacion: "01/01/2020",
-    fechaEntregaAEvaluador: "02/01/2020",
-    fechaEntregaDeEvaluador: "03/01/2020",
-    fechaAprobacion: "04/01/2020",
+    fechaCreacion: new Date("2020-01-01"),
+    fechaEntregaAEvaluador: undefined,
+    fechaEntregaDeEvaluador: undefined,
+    fechaAprobacion: undefined,
     noEntrega: 1,
     estado: 2,
     autores: [
@@ -269,10 +269,10 @@ export const anteproyectoDataTable: AnteproyectoTable[] = [
     anteproyectoId: "2",
     noRadicacion: "00002",
     titulo: "Degree Project 2",
-    fechaCreacion: "02/01/2020",
-    fechaEntregaAEvaluador: "03/01/2020",
-    fechaEntregaDeEvaluador: "04/01/2020",
-    fechaAprobacion: "05/01/2020",
+    fechaCreacion: new Date("2020-01-02"),
+    fechaEntregaAEvaluador: new Date("2020-01-02"),
+    fechaEntregaDeEvaluador: new Date("2020-01-03"),
+    fechaAprobacion: new Date("2020-01-04"),
     noEntrega: 2,
     estado: 3,
     autores: [
@@ -346,28 +346,13 @@ export const anteproyectoDataTable: AnteproyectoTable[] = [
     anteproyectoId: "3",
     noRadicacion: "00003",
     titulo: "Degree Project 3",
-    fechaCreacion: "03/01/2020",
-    fechaEntregaAEvaluador: "04/01/2020",
-    fechaEntregaDeEvaluador: "05/01/2020",
-    fechaAprobacion: "06/01/2020",
+    fechaCreacion: new Date("2020-01-01"),
+    fechaEntregaAEvaluador: new Date("2020-01-04"),
+    fechaEntregaDeEvaluador: new Date("2020-01-05"),
+    fechaAprobacion: new Date("2020-01-06"),
     noEntrega: 0,
     estado: 1,
     autores: [
-      {
-        name: "Jane",
-        lastname: "Smith",
-        email: "janesmith@javerianacali.edu.co",
-        userId: "234567",
-        personalId: "8765432",
-        enabled: true,
-            roles: [
-              {
-                roleId: 2,
-                descripcion: "ESTUDIANTE"
-              }
-            ],
-            estudiante: true,
-      },
       {
         name: "David",
         lastname: "Johnson",
@@ -438,10 +423,10 @@ export const anteproyectoDataTable: AnteproyectoTable[] = [
     anteproyectoId: "4",
     noRadicacion: "00004",
     titulo: "Degree Project 4",
-    fechaCreacion: "04/01/2020",
-    fechaEntregaAEvaluador: "05/01/2020",
-    fechaEntregaDeEvaluador: "06/01/2020",
-    fechaAprobacion: "07/01/2020",
+    fechaCreacion: new Date("2020-01-01"),
+    fechaEntregaAEvaluador: new Date("2020-01-04"),
+    fechaEntregaDeEvaluador: new Date("2020-01-05"),
+    fechaAprobacion: new Date("2020-01-06"),
     noEntrega: 3,
     estado: 2,
     autores: [
@@ -526,161 +511,163 @@ export const anteproyectoDataTable: AnteproyectoTable[] = [
       }
     ]
   },
-  {
-    anteproyectoId: "5",
-    noRadicacion: "00005",
-    titulo: "Degree Project 5",
-    fechaCreacion: "05/01/2020",
-    fechaEntregaAEvaluador: "06/01/2020",
-    fechaEntregaDeEvaluador: "07/01/2020",
-    fechaAprobacion: "08/01/2020",
-    noEntrega: 1,
-    estado: 3,
-    autores: [
-      {
-        name: "Linda",
-        lastname: "Jones",
-        email: "lindajones@javerianacali.edu.co",
-        userId: "678901",
-        personalId: "4321098",
-        enabled: true,
-            roles: [
-              {
-                roleId: 2,
-                descripcion: "ESTUDIANTE"
-              }
-            ],
-            estudiante: true,
-      },
-      {
-        name: "Christopher",
-        lastname: "Miller",
-        email: "christophermiller@javerianacali.edu.co",
-        userId: "789012",
-        personalId: "3210987",
-        enabled: true,
-            roles: [
-              {
-                roleId: 2,
-                descripcion: "ESTUDIANTE"
-              }
-            ],
-            estudiante: true,
-      },
-    ],
-    directores: [
-      {
-        name: "Sophia",
-        lastname: "White",
-        email: "sophiawhite@javerianacali.edu.co",
-        userId: "456783",
-        personalId: "6543210",
-        estudiante: false,
-        roles: [
-          {
-            roleId: 3,
-            descripcion: "DIRECTOR"
-          }
-        ],
-        enabled: true,
-      },
-    ],
-    evaluadores: [
-      {
-        name: "James",
-        lastname: "Thompson",
-        email: "jamesthompson@javerianacali.edu.co",
-        userId: "789016",
-        personalId: "3210987",
-        estudiante: false,
-        roles: [
-          {
-            roleId: 3,
-            descripcion: "EVALUADOR"
-          }
-        ],
-        enabled: true,
-      },
-      {
-        name: "Samantha",
-        lastname: "Garcia",
-        email: "samanthagarcia@javerianacali.edu.co",
-        userId: "890127",
-        personalId: "2109876",
-        estudiante: false,
-        roles: [
-          {
-            roleId: 3,
-            descripcion: "EVALUADOR"
-          }
-        ],
-        enabled: true,
-      },
-    ]
-  },
-  {
-    anteproyectoId: "6",
-    noRadicacion: "00006",
-    titulo: "Degree Project 6",
-    fechaCreacion: "06/01/2020",
-    fechaEntregaAEvaluador: "07/01/2020",
-    fechaEntregaDeEvaluador: "08/01/2020",
-    fechaAprobacion: "09/01/2020",
-    noEntrega: 2,
-    estado: 1,
-    autores: [
-      {
-        name: "Emily",
-        lastname: "Taylor",
-        email: "emilytaylor@javerianacali.edu.co",
-        userId: "012345",
-        personalId: "0987654",
-        enabled: true,
-            roles: [
-              {
-                roleId: 2,
-                descripcion: "ESTUDIANTE"
-              }
-            ],
-            estudiante: true,
-      },
-    ],
-    directores: [
-      {
-        name: "Olivia",
-        lastname: "Thomas",
-        email: "oliviathomas@javerianacali.edu.co",
-        userId: "234561",
-        personalId: "8765432",
-        estudiante: false,
-        roles: [
-          {
-            roleId: 3,
-            descripcion: "DIRECTOR"
-          }
-        ],
-        enabled: true,
-      },
-      {
-        name: "Andrew",
-        lastname: "Jackson",
-        email: "andrewjackson@javerianacali.edu.co",
-        userId: "345672",
-        personalId: "7654321",
-        estudiante: false,
-        roles: [
-          {
-            roleId: 3,
-            descripcion: "DIRECTOR"
-          }
-        ],
-        enabled: true,
-      },
-    ],
-    evaluadores: [
+  // {
+  //   anteproyectoId: "5",
+  //   noRadicacion: "00005",
+  //   titulo: "Degree Project 5",
+  //   fechaCreacion: "05/01/2020",
+  //   fechaEntregaAEvaluador: "06/01/2020",
+  //   fechaEntregaDeEvaluador: "07/01/2020",
+  //   fechaAprobacion: "08/01/2020",
+  //   noEntrega: 1,
+  //   estado: 3,
+  //   autores: [
+  //     {
+  //       name: "Linda",
+  //       lastname: "Jones",
+  //       email: "lindajones@javerianacali.edu.co",
+  //       userId: "678901",
+  //       personalId: "4321098",
+  //       enabled: true,
+  //           roles: [
+  //             {
+  //               roleId: 2,
+  //               descripcion: "ESTUDIANTE"
+  //             }
+  //           ],
+  //           estudiante: true,
+  //     },
+  //     {
+  //       name: "Christopher",
+  //       lastname: "Miller",
+  //       email: "christophermiller@javerianacali.edu.co",
+  //       userId: "789012",
+  //       personalId: "3210987",
+  //       enabled: true,
+  //           roles: [
+  //             {
+  //               roleId: 2,
+  //               descripcion: "ESTUDIANTE"
+  //             }
+  //           ],
+  //           estudiante: true,
+  //     },
+  //   ],
+  //   directores: [
+  //     {
+  //       name: "Sophia",
+  //       lastname: "White",
+  //       email: "sophiawhite@javerianacali.edu.co",
+  //       userId: "456783",
+  //       personalId: "6543210",
+  //       estudiante: false,
+  //       roles: [
+  //         {
+  //           roleId: 3,
+  //           descripcion: "DIRECTOR"
+  //         }
+  //       ],
+  //       enabled: true,
+  //     },
+  //   ],
+  //   evaluadores: [
+  //     {
+  //       name: "James",
+  //       lastname: "Thompson",
+  //       email: "jamesthompson@javerianacali.edu.co",
+  //       userId: "789016",
+  //       personalId: "3210987",
+  //       estudiante: false,
+  //       roles: [
+  //         {
+  //           roleId: 3,
+  //           descripcion: "EVALUADOR"
+  //         }
+  //       ],
+  //       enabled: true,
+  //     },
+  //     {
+  //       name: "Samantha",
+  //       lastname: "Garcia",
+  //       email: "samanthagarcia@javerianacali.edu.co",
+  //       userId: "890127",
+  //       personalId: "2109876",
+  //       estudiante: false,
+  //       roles: [
+  //         {
+  //           roleId: 3,
+  //           descripcion: "EVALUADOR"
+  //         }
+  //       ],
+  //       enabled: true,
+  //     },
+  //   ]
+  // },
+  // {
+  //   anteproyectoId: "6",
+  //   noRadicacion: "00006",
+  //   titulo: "Degree Project 6",
+  //   fechaCreacion: "06/01/2020",
+  //   fechaEntregaAEvaluador: "07/01/2020",
+  //   fechaEntregaDeEvaluador: "08/01/2020",
+  //   fechaAprobacion: "09/01/2020",
+  //   noEntrega: 2,
+  //   estado: 1,
+  //   autores: [
+  //     {
+  //       name: "Emily",
+  //       lastname: "Taylor",
+  //       email: "emilytaylor@javerianacali.edu.co",
+  //       userId: "012345",
+  //       personalId: "0987654",
+  //       enabled: true,
+  //           roles: [
+  //             {
+  //               roleId: 2,
+  //               descripcion: "ESTUDIANTE"
+  //             }
+  //           ],
+  //           estudiante: true,
+  //     },
+  //   ],
+  //   directores: [
+  //     {
+  //       name: "Olivia",
+  //       lastname: "Thomas",
+  //       email: "oliviathomas@javerianacali.edu.co",
+  //       userId: "234561",
+  //       personalId: "8765432",
+  //       estudiante: false,
+  //       roles: [
+  //         {
+  //           roleId: 3,
+  //           descripcion: "DIRECTOR"
+  //         }
+  //       ],
+  //       enabled: true,
+  //     },
+  //     {
+  //       name: "Andrew",
+  //       lastname: "Jackson",
+  //       email: "andrewjackson@javerianacali.edu.co",
+  //       userId: "345672",
+  //       personalId: "7654321",
+  //       estudiante: false,
+  //       roles: [
+  //         {
+  //           roleId: 3,
+  //           descripcion: "DIRECTOR"
+  //         }
+  //       ],
+  //       enabled: true,
+  //     },
+  //   ],
+  //   evaluadores: [
 
-    ],
-  },
+  //   ],
+  // },
+
+
   // {
   //   "anteproyectoId": "7",
   //   "noRadicacion": "00007",
