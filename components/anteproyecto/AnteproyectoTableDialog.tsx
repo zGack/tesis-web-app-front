@@ -65,13 +65,14 @@ export const AnteproyectoTableDialog = ({
                         {project.noRadicacion} 
                       </DialogLabelBox>
 
+                      {/* Fechas */}
                       <DialogDateBox
                         title="Fecha de creación"
-                        date={`${project.fechaCreacion.replaceAll('-','/')}`}
+                        date={project.fechaCreacion}
                       />
                       <DialogDateBox
                         title="Fecha de aprobación"
-                        date={`${ project.fechaAprobacion ? project.fechaAprobacion.replaceAll('-','/') : '--/--/----'}`}
+                        date={project.fechaAprobacion}
                       />
 
                       {/* Estado */}
@@ -80,10 +81,6 @@ export const AnteproyectoTableDialog = ({
                       </DialogLabelBox> 
                     </div>
 
-                    {/* Fechas */}
-                    {/* <div className="flex flex-row space-x-3 items-center">
-                      
-                    </div> */}
                     
                     {/* Autores */}
                     <DialogSection 
@@ -120,13 +117,13 @@ export const AnteproyectoTableDialog = ({
                         </DialogLabelBox> 
                         <div className='col-span-2'>
                           <DialogDateBox
-                            date={(project.fechaEntregaAEvaluador.length > 0)? project.fechaEntregaAEvaluador.replaceAll('-','/') :'--/--/---'}
+                            date={project.fechaEntregaAEvaluador}
                             title="Fecha de entrega al evaluador"
                           />
                         </div>
                         <div className='col-span-2'>
                           <DialogDateBox
-                            date={(project.fechaEntregaDeEvaluador.length > 0)? project.fechaEntregaDeEvaluador.replaceAll('-','/') :'--/--/---'}
+                            date={project.fechaEntregaDeEvaluador}
                             title="Fecha de respuesta del evaluador"
                           />
                         </div>

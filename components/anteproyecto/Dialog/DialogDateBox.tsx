@@ -1,7 +1,7 @@
 
 interface Props {
   title: string;
-  date: string;
+  date: Date | undefined;
 }
 
 export const DialogDateBox = ({ title, date }: Props) => {
@@ -15,7 +15,12 @@ export const DialogDateBox = ({ title, date }: Props) => {
           </svg>
         </span>
         <p className="inline-flex ml-3 font-normal text-gray-700">
-          { date }
+          { date 
+            ? 
+            date.toLocaleDateString('en-GB')
+            :
+            '--/--/----'
+          }
         </p>
       </div>
     </div>

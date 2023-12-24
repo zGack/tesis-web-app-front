@@ -10,7 +10,10 @@ const config: Config = {
     extend: {
       colors: {
         'javeriana': {
-          'blue': '#2c5697f5',
+          'blue': '#2C5697',
+          'blue-600': '#3D6FBC',
+          'blue-800': '#24487B',
+          'blue-950': '#103062',
           'yellow': '#f8cd00',
         }
       },
