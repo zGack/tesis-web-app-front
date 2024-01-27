@@ -1,8 +1,8 @@
 import { createColumnHelper } from "@tanstack/react-table";
 
 import { AnteproyectoTable } from "@/data/anteproyecto";
-import { StatusCell } from "@/components/anteproyecto";
-import AuthorsCell from "@/components/anteproyecto/AuthorsCell";
+import { StatusCell } from "@/components/projects";
+import AuthorsCell from "@/components/projects/AuthorsCell";
 
 const columnHelper = createColumnHelper<AnteproyectoTable>();
 

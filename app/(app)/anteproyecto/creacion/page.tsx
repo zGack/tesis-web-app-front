@@ -7,8 +7,8 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { 
   StatusBadgeListbox, 
   DatepickerInput, 
-  AnteproyectoFormSection 
-} from "@/components/anteproyecto";
+  FormSection
+} from "@/components/projects";
 import { STATUS_BADGES, STATUS_BADGE_TYPE } from "@/components";
 
 type FormData = {
@@ -43,7 +43,6 @@ const CrearAnteproyecto = () => {
     register,
     handleSubmit,
     control,
-    getValues,
     setValue,
     watch,
     formState: { errors },
@@ -168,7 +167,7 @@ const CrearAnteproyecto = () => {
               </div>
 
               {/* Campo Titulo Anteproyecto */}
-              <AnteproyectoFormSection title="Título Anteproyecto">
+              <FormSection title="Título Anteproyecto">
                 <input 
                   type="text" 
                   className="bg-gray-50 border border-gray-300 outline-gray-400 text-gray-900 text-sm rounded-sm block w-full p-2.5 " 
@@ -177,10 +176,10 @@ const CrearAnteproyecto = () => {
                     required: true
                   })}
                 />
-              </AnteproyectoFormSection>
+              </FormSection>
 
               {/* Campo Autores */}
-              <AnteproyectoFormSection 
+              <FormSection 
                 title="Autores" 
                 controlFormButtons 
                 buttonAlias="Autor"
@@ -216,10 +215,10 @@ const CrearAnteproyecto = () => {
                   })
                 }
                 </div>
-              </AnteproyectoFormSection>
+              </FormSection>
 
               {/* Campo Director */}
-              <AnteproyectoFormSection 
+              <FormSection 
                 title="Director" 
                 controlFormButtons
                 onAddBtnClick={() => appendDirector({ fullname: "", email: ""})}
@@ -246,10 +245,10 @@ const CrearAnteproyecto = () => {
                     ))
                   }
                 </div>
-              </AnteproyectoFormSection>
+              </FormSection>
 
               {/* Campo Evaluador */}
-              <AnteproyectoFormSection 
+              <FormSection 
                 title="Evaluadores" 
                 controlFormButtons
                 buttonAlias="Evaluador"
@@ -277,16 +276,16 @@ const CrearAnteproyecto = () => {
                     ))
                   }
                 </div>
-              </AnteproyectoFormSection>
+              </FormSection>
 
               {/* Campo Entregas */}
-              <AnteproyectoFormSection title="Entregas" controlFormButtons buttonAlias="Entrega">
+              <FormSection title="Entregas" controlFormButtons buttonAlias="Entrega">
                 <div className="flex justify-center">
                   <p className="italic text-sm">
                     No se han radicado entregas
                   </p>
                 </div>
-              </AnteproyectoFormSection>
+              </FormSection>
               
             </div>
 
