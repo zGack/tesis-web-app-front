@@ -6,13 +6,12 @@ interface SeedUser {
   email:                 string;
   lastname:              string;
   password:              string;
-  estudiante:            boolean;
-  role:                  ValidRoles;
-  active:                boolean;
+  role:                  ValidRoles[] | undefined;
+  active:                boolean | undefined;
 }
 
 interface SeedAnteproyecto {
-  noRadicacion:            string;
+  noRadicacion:            number;
   titulo:                  string;
   fechaEntregaAEvaluador:  Date | undefined;
   fechaEntregaDeEvaluador: Date | undefined;
@@ -20,7 +19,7 @@ interface SeedAnteproyecto {
   fechaAprobacion:         Date | undefined;
   noEntrega:               number;
   estado:                  number;
-  users:                   SeedUser[];
+  users:                   string[];
 }
 
 interface SeedTrabajoDeGrado {
@@ -31,7 +30,7 @@ interface SeedTrabajoDeGrado {
   notaDefinitiva:          number | undefined;
   gradoPostular:           ValidGrades;
   fechaSutentacion:        Date | undefined;
-  users:                   SeedUser[];
+  users:                   String[];
 }
 
 interface SeedData {
@@ -42,12 +41,170 @@ interface SeedData {
 
 export const initialData: SeedData = {
   users: [
-
+    {
+      email: "sebasmenfe99@javerianacali.edu.co",
+      name: "Sebastian",
+      lastname: "Mena Ferreira",
+      password: '123123',
+      role: ['estudiante'],
+      active: true,
+    },
+    {
+      email: "paulmartinez@javerianacali.edu.co",
+      name: "Paul Harvey",
+      lastname: "Martinez",
+      password: '123123',
+      role: ['estudiante'],
+      active: true
+    },
+    {
+      email: "geilerhipia@javerianacali.edu.co",
+      name: "Geiler Orlando",
+      lastname: "Hipia",
+      password: '123123',
+      role: ['estudiante'],
+      active: true,
+    },
+    {
+      email: "alejobecerra@javerianacali.edu.co",
+      name: "Alejandro",
+      lastname: "Becerra",
+      password: '123123',
+      role: ['estudiante'],
+      active: true,
+    },
+    {
+      email: "juancmartinez@javerianacali.edu.co",
+      name: "Juan Carlos",
+      lastname: "Martinez",
+      password: '123123',
+      role: ['evaluador', 'director', 'jurado'],
+      active: true,
+    },
+    {
+      email: "gmsarria@javerianacali.edu.co",
+      name: "Gerardo",
+      lastname: "Sarria",
+      password: '123123',
+      role: ['evaluador', 'director', 'jurado'],
+      active: true,
+    },
+    {
+      email: "cramirez@javerianacali.edu.co",
+      name: "Carlos",
+      lastname: "Ramirez",
+      password: '123123',
+      role: ['evaluador', 'director', 'jurado'],
+      active: true,
+    },
+    {
+      name: "John",
+      lastname: "Doe",
+      email: "johndoe@javerianacali.edu.co",
+      password: '123123',
+      role: ['estudiante'],
+      active: true,
+    },
+    {
+      name: "Matthew",
+      lastname: "Anderson",
+      email: "matthewanderson@javerianacali.edu.co",
+      password: '123123',
+      role: ['director'],
+      active: true,
+    },
+    {
+      name: "Victoria",
+      lastname: "Martin",
+      email: "victoriamartin@javerianacali.edu.co",
+      password: '123321',
+      role: ['evaluador'],
+      active: true,
+    },
+    {
+      name: "James",
+      lastname: "Thompson",
+      email: "jamesthompson@javerianacali.edu.co",
+      password: '123321',
+      role: ['evaluador'],
+      active: true,
+    },
+    {
+      name: "Jane",
+      lastname: "Smith",
+      email: "janesmith@javerianacali.edu.co",
+      password: "123321",
+      active: true,
+      role: ['estudiante'],
+    },
+    {
+      name: "Olivia",
+      lastname: "Thomas",
+      email: "oliviathomas@javerianacali.edu.co",
+      password: '123321',
+      role: ['director'],
+      active: true,
+    },
+    {
+      name: "Samantha",
+      lastname: "Garcia",
+      email: "samanthagarcia@javerianacali.edu.co",
+      password: "123321",
+      role: ['evaluador'],
+      active: true,
+    },
+    {
+      name: "Joseph",
+      lastname: "Rodriguez",
+      email: "josephrodriguez@javerianacali.edu.co",
+      password: "123321",
+      role: ['evaluador'],
+      active: true,
+    },
+    {
+      name: "David",
+      lastname: "Johnson",
+      email: "davidjohnson@javerianacali.edu.co",
+      password: '123321',
+      active: true,
+      role: ['estudiante'],
+    },
+    {
+      name: "Andrew",
+      lastname: "Jackson",
+      email: "andrewjackson@javerianacali.edu.co",
+      password: '123321',
+      role: ['director'],
+      active: true,
+    },
+    {
+      name: "Sophia",
+      lastname: "White",
+      email: "sophiawhite@javerianacali.edu.co",
+      password: '123321',
+      active: true,
+      role: ['director'],
+    },
+    {
+      name: "Michael",
+      lastname : "Brown",
+      email: "michaelbrown@javerianacali.edu.co",
+      password: '123321',
+      active: true,
+      role: ['estudiante'],
+    },
+    {
+      name: "Abigail",
+      lastname: "Lopez",
+      email: "abigaillopez@javerianacali.edu.co",
+      password: '123321',
+      role: ['evaluador'],
+      active: true,
+    }
   ],
   anteproyectos: [
     {
-      anteproyectoId: "25",
-      noRadicacion: "1224",
+      noRadicacion: 1224,
       noEntrega: 2,
       titulo: 'Sistema Gestor de Proyectos de Grado',
       fechaEntregaAEvaluador: new Date("2023-07-21"),
@@ -55,76 +212,15 @@ export const initialData: SeedData = {
       fechaCreacion: new Date("2023-06-15"),
       fechaAprobacion: new Date("2023-09-15"),
       estado: 1,
-      autores: [
-        {
-          userId: "1",
-          personalId: "8947234",
-          email: "sebasmenfe99@javerianacali.edu.co",
-          name: "Sebastian",
-          lastname: "Mena Ferreira",
-          estudiante: true,
-          roles: [
-            {
-              roleId: 2,
-              descripcion: "ESTUDIANTE"
-            }
-          ],
-          enabled: true,
-        },
-        {
-          userId: "2",
-          personalId: "8947440",
-          email: "paulmartinez@javerianacali.edu.co",
-          name: "Paul Harvey",
-          lastname: "Martinez",
-          estudiante: true,
-          roles: [
-            {
-              roleId: 2,
-              descripcion: "ESTUDIANTE"
-            }
-          ],
-          enabled: true,
-        },
-      ],
-      evaluadores: [
-        {
-          userId: "3",
-          personalId: "699412",
-          email: "juancmartinez@javerianacali.edu.co",
-          name: "Juan Carlos",
-          lastname: "Martinez",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
-      ],
-      directores: [
-        {
-          userId: "5",
-          personalId: "699412",
-          email: "gmsarria@javerianacali.edu.co",
-          name: "Gerardo",
-          lastname: "Sarria",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "DIRECTOR"
-            }
-          ],
-          enabled: true,
-        },
+      users: [
+          "sebasmenfe99@javerianacali.edu.co",
+          "paulmartinez@javerianacali.edu.co",
+          "juancmartinez@javerianacali.edu.co",
+          "gmsarria@javerianacali.edu.co",
       ]
     },
     {
-      anteproyectoId: "23",
-      noRadicacion: "1089",
+      noRadicacion: 1089,
       noEntrega: 3,
       titulo: 'Implementación de una aplicación web que facilite el uso de técnicas de reducción de casos de prueba del software',
       fechaEntregaAEvaluador: new Date("2023-07-21"),
@@ -132,76 +228,15 @@ export const initialData: SeedData = {
       fechaCreacion: new Date("2023-06-15"),
       fechaAprobacion: undefined,
       estado: 2,
-      autores: [
-        {
-          userId: "3",
-          personalId: "8948297",
-          email: "abeltran@javerianacali.edu.co",
-          name: "Alejandro",
-          lastname: "Beltran Zuluaga",
-          estudiante: true,
-          roles: [
-            {
-              roleId: 2,
-              descripcion: "ESTUDIANTE"
-            }
-          ],
-          enabled: true,
-        },
-        {
-          userId: "4",
-          personalId: "8948106",
-          email: "ghipiam@javerianacali.edu.co",
-          name: "Geiler Orlando",
-          lastname: "Hipia Mejia",
-          estudiante: true,
-          roles: [
-            {
-              roleId: 2,
-              descripcion: "ESTUDIANTE"
-            }
-          ],
-          enabled: true,
-        },
-      ],
-      evaluadores: [
-        {
-          userId: "3",
-          personalId: "699412",
-          email: "cramirez@javerianacali.edu.co",
-          name: "Carlos",
-          lastname: "Ramirez",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
-      ],
-      directores: [
-        {
-          userId: "3",
-          personalId: "699412",
-          email: "juanpgarcia@javerianacali.edu.co",
-          name: "Juan Pablo",
-          lastname: "Garcia",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
+      users: [
+          "geilerhipia@javerianacali.edu.co",
+          "alejobecerra@javerianacali.edu.co",
+          "juancmartinez@javerianacali.edu.co",
+          "cramirez@javerianacali.edu.co",
       ]
     },
     {
-      anteproyectoId: "1",
-      noRadicacion: "00001",
+      noRadicacion: 20001,
       titulo: "Degree Project 1",
       fechaCreacion: new Date("2020-01-01"),
       fechaEntregaAEvaluador: undefined,
@@ -209,76 +244,15 @@ export const initialData: SeedData = {
       fechaAprobacion: undefined,
       noEntrega: 1,
       estado: 2,
-      autores: [
-        {
-          name: "John",
-          lastname: "Doe",
-          email: "johndoe@javerianacali.edu.co",
-          userId: "123456",
-          personalId: "9876543",
-          enabled: true,
-          roles: [
-            {
-              roleId: 2,
-              descripcion: "ESTUDIANTE"
-            }
-          ],
-          estudiante: true,
-        },
-        ],
-      directores: [
-        {
-          name: "Matthew",
-          lastname: "Anderson",
-          email: "matthewanderson@javerianacali.edu.co",
-          userId: "123450",
-          personalId: "9876543",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "DIRECTOR"
-            }
-          ],
-          enabled: true,
-        },
-      ],
-      evaluadores: [
-        {
-          name: "Victoria",
-          lastname: "Martin",
-          email: "victoriamartin@javerianacali.edu.co",
-          userId: "678905",
-          personalId: "4321098",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
-        {
-          name: "James",
-          lastname: "Thompson",
-          email: "jamesthompson@javerianacali.edu.co",
-          userId: "789016",
-          personalId: "3210987",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
+      users: [
+          "johndoe@javerianacali.edu.co",
+          "matthewanderson@javerianacali.edu.co",
+          "victoriamartin@javerianacali.edu.co",
+          "jamesthompson@javerianacali.edu.co",
       ],
     },
     {
-      anteproyectoId: "2",
-      noRadicacion: "00002",
+      noRadicacion: 20002,
       titulo: "Degree Project 2",
       fechaCreacion: new Date("2020-01-02"),
       fechaEntregaAEvaluador: new Date("2020-01-02"),
@@ -286,76 +260,15 @@ export const initialData: SeedData = {
       fechaAprobacion: new Date("2020-01-04"),
       noEntrega: 2,
       estado: 3,
-      autores: [
-          {
-          name: "Jane",
-          lastname: "Smith",
-          email: "janesmith@javerianacali.edu.co",
-          userId: "234567",
-          personalId: "8765432",
-          enabled: true,
-              roles: [
-                {
-                  roleId: 2,
-                  descripcion: "ESTUDIANTE"
-                }
-              ],
-              estudiante: true,
-        },
-      ],
-      directores: [
-        {
-          name: "Olivia",
-          lastname: "Thomas",
-          email: "oliviathomas@javerianacali.edu.co",
-          userId: "234561",
-          personalId: "8765432",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "DIRECTOR"
-            }
-          ],
-          enabled: true,
-        },
-      ],
-      evaluadores: [
-        {
-          name: "Samantha",
-          lastname: "Garcia",
-          email: "samanthagarcia@javerianacali.edu.co",
-          userId: "890127",
-          personalId: "2109876",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
-        {
-          name: "Joseph",
-          lastname: "Rodriguez",
-          email: "josephrodriguez@javerianacali.edu.co",
-          userId: "901238",
-          personalId: "1098765",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
+      users: [
+          "janesmith@javerianacali.edu.co",
+          "oliviathomas@javerianacali.edu.co",
+          "samanthagarcia@javerianacali.edu.co",
+          "josephrodriguez@javerianacali.edu.co",
       ],
     },
     {
-      anteproyectoId: "3",
-      noRadicacion: "00003",
+      noRadicacion: 20003,
       titulo: "Degree Project 3",
       fechaCreacion: new Date("2020-01-01"),
       fechaEntregaAEvaluador: new Date("2020-01-04"),
@@ -363,76 +276,15 @@ export const initialData: SeedData = {
       fechaAprobacion: new Date("2020-01-06"),
       noEntrega: 0,
       estado: 1,
-      autores: [
-        {
-          name: "David",
-          lastname: "Johnson",
-          email: "davidjohnson@javerianacali.edu.co",
-          userId: "345678",
-          personalId: "7654321",
-          enabled: true,
-              roles: [
-                {
-                  roleId: 2,
-                  descripcion: "ESTUDIANTE"
-                }
-              ],
-              estudiante: true,
-        },
+      users: [
+          "davidjohnson@javerianacali.edu.co",
+          "andrewjackson@javerianacali.edu.co",
+          "victoriamartin@javerianacali.edu.co",
+          "jamesthompson@javerianacali.edu.co",
       ],
-      directores: [
-        {
-          name: "Andrew",
-          lastname: "Jackson",
-          email: "andrewjackson@javerianacali.edu.co",
-          userId: "345672",
-          personalId: "7654321",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "DIRECTOR"
-            }
-          ],
-          enabled: true,
-        },
-        {
-          name: "Sophia",
-          lastname: "White",
-          email: "sophiawhite@javerianacali.edu.co",
-          userId: "456783",
-          personalId: "6543210",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "DIRECTOR"
-            }
-          ],
-          enabled: true,
-        },
-      ],
-      evaluadores: [
-        {
-          name: "James",
-          lastname: "Thompson",
-          email: "jamesthompson@javerianacali.edu.co",
-          userId: "789016",
-          personalId: "3210987",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
-      ]
     },
     {
-      anteproyectoId: "4",
-      noRadicacion: "00004",
+      noRadicacion: 20004,
       titulo: "Degree Project 4",
       fechaCreacion: new Date("2020-01-01"),
       fechaEntregaAEvaluador: new Date("2020-01-04"),
@@ -440,87 +292,11 @@ export const initialData: SeedData = {
       fechaAprobacion: new Date("2020-01-06"),
       noEntrega: 3,
       estado: 2,
-      autores: [
-        {
-          name: "Michael",
-          lastname : "Brown",
-          email: "michaelbrown@javerianacali.edu.co",
-          userId: "567890",
-          personalId: "5432109",
-          enabled: true,
-              roles: [
-                {
-                  roleId: 2,
-                  descripcion: "ESTUDIANTE"
-                }
-              ],
-              estudiante: true,
-        },
+      users: [
+          "michaelbrown@javerianacali.edu.co",
+          "abigaillopez@javerianacali.edu.co",
+          "sophiawhite@javerianacali.edu.co",
       ],
-      directores: [
-        {
-          name: "Sophia",
-          lastname: "White",
-          email: "sophiawhite@javerianacali.edu.co",
-          userId: "456783",
-          personalId: "6543210",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "DIRECTOR"
-            }
-          ],
-          enabled: true,
-        },
-      ],
-      evaluadores: [
-        {
-          name: "Samantha",
-          lastname: "Garcia",
-          email: "samanthagarcia@javerianacali.edu.co",
-          userId: "890127",
-          personalId: "2109876",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
-        {
-          name: "Joseph",
-          lastname: "Rodriguez",
-          email: "josephrodriguez@javerianacali.edu.co",
-          userId: "901238",
-          personalId: "1098765",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        },
-        {
-          name: "Abigail",
-          lastname: "Lopez",
-          email: "abigaillopez@javerianacali.edu.co",
-          userId: "012349",
-          personalId: "0987654",
-          estudiante: false,
-          roles: [
-            {
-              roleId: 3,
-              descripcion: "EVALUADOR"
-            }
-          ],
-          enabled: true,
-        }
-      ]
     },
     // {
     //   anteproyectoId: "5",
@@ -833,5 +609,6 @@ export const initialData: SeedData = {
     //   "noEntrega": 3,
     //   "estado": 3
     // }
-  ]
+  ],
+  trabajosDeGrados: []
 }
