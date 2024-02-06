@@ -11,7 +11,7 @@ async function main() {
   await prisma.anteproyecto.deleteMany();
   await prisma.user.deleteMany();
 
-  const { users, anteproyectos } = initialData;
+  const { users, anteproyectos, trabajosDeGrados } = initialData;
 
   // 1. Insertar usuarios en la DB
   await prisma.user.createMany({
@@ -36,8 +36,9 @@ async function main() {
 
     // 3. Insertar las relaciones de usuario - anteproyecto
     const usersOnAnteproyectosData = users.map( user => ({
-      userId: usersMap[user],
-      anteproyectoId: anteproyectoDB.id
+      userId: usersMap[user.email],
+      anteproyectoId: anteproyectoDB.id,
+      userOnAnteproyectoRole: user.role
     }));
 
     await prisma.usersOnAnteproyectos.createMany({
@@ -48,7 +49,13 @@ async function main() {
 
 
   // 4. Insertar trabajos de grado
+  // trabajosDeGrados.forEach( async(trabajoDeGrado) => {
+  //   const { users, anteproyecto, ...rest } = trabajoDeGrado;
 
+  //   const trabajoDeGradoDB = await prisma.trabajosDeGrado.create({
+  //     data: rest
+  //   })
+  // })
   // 5. Insertar las relaciones de usuario - trabajo de grado
 
 

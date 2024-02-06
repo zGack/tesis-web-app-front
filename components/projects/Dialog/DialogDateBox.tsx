@@ -1,7 +1,7 @@
 
 interface Props {
   title: string;
-  date: Date | undefined;
+  date: Date | null;
 }
 
 export const DialogDateBox = ({ title, date }: Props) => {

@@ -1,5 +1,6 @@
 'use client'
 
+import { login } from "@/actions";
 import { AuthContext } from "@/context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,16 +26,18 @@ const Login = () => {
 
   const onLogin = async ({ email, password }: FormData) => {
 
-    const logginSuccessful = await loginUser(email, password);
+    // const logginSuccessful = await loginUser(email, password);
 
-    if (!logginSuccessful) {
-      console.log('an error has ocurred');
-      return;
-    }
+    // if (!logginSuccessful) {
+    //   console.log('an error has ocurred');
+    //   return;
+    // }
 
-    console.log({ email, password });
-    
-    router.push('/anteproyecto')
+    const data = await login(email, password);
+
+    console.log(data);
+
+    // router.push('/anteproyecto')
 
   }
 
