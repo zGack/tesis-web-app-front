@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "ts-node seed/seed-database.ts"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@prisma/client": "5.8.1",
     "@tanstack/react-table": "^8.10.3",
     "@types/node": "20.6.0",
     "@types/react": "18.2.21",
@@ -32,6 +34,8 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
-    "@types/react-datepicker": "^4.19.1"
+    "@types/react-datepicker": "^4.19.1",
+    "prisma": "^5.8.1",
+    "ts-node": "^10.9.2"
   }
 }

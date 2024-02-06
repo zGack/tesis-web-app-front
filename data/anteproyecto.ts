@@ -1,4 +1,3 @@
-
 export interface user {
   userId:                string;
   personalId:            string;

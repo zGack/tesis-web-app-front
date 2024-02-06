@@ -16,8 +16,8 @@ import {
 
 import { AnteproyectoTable, anteproyectoDataTable } from "@/data/anteproyecto";
 import { columns } from './columns';
-import { AnteproyectoTableDialog, TablePagination } from "@/components/anteproyecto";
-import TableFilters from "@/components/anteproyecto/TableFilters";
+import { AnteproyectoTableDialog, TablePagination } from "@/components/projects";
+import TableFilters from "@/components/projects/TableFilters";
 
 const Anteproyecto = () => {
   const [data, setData] = useState(() => [...anteproyectoDataTable]);
@@ -54,15 +54,20 @@ const Anteproyecto = () => {
         {/* TABLE HEADER */}
         <div className="flex items-center space-x-3 py-4 bg-white">
             
-          <TableFilters columnFilters={columnFilters} setColumnFilters={setColumnFilters} />
+          <TableFilters 
+            columnFilters={columnFilters} 
+            setColumnFilters={setColumnFilters} 
+            showStatusFilter={true}
+            placeholderLabel="Anteproyecto"
+          />
 
         </div>
 
-        {/* TABLE CONTENT */}
+        {/* TABLE LAYOUT */}
 
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-          {/* TABLE COLUMNS */}
+          {/* TABLE HEADER */}
           {
             table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
@@ -116,7 +121,7 @@ const Anteproyecto = () => {
             ))
           }
           </thead>
-          {/* TABLE CONTENT */}
+          {/* TABLE BODY */}
           <tbody>
             {
               table.getRowModel().rows.map((row) => (
