@@ -1,7 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 
 import { TrabajoGradoTable } from "@/data";
-import { StatusCell } from "@/components/projects";
 import AuthorsCell from "@/components/projects/AuthorsCell";
 
 const columnHelper = createColumnHelper<TrabajoGradoTable>();

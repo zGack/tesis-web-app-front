@@ -12,7 +12,7 @@ const navItems = [
   },
   {
     "name": "Anteproyecto",
-    "url": "/anteproyecto",
+    "url": "/anteproyectos",
   },
   {
     "name": "Trabajo de grado",

@@ -1,15 +1,25 @@
-import { IUser } from ".";
+import { ValidRoles } from "./user.iterface";
 
 export interface Anteproyecto {
-  anteproyectoId:          string;
-  noRadicacion:            number;
-  titulo:                  string;
-  fechaEntregaAEvaluador:  Date;
-  fechaEntregaDeEvaluador: Date;
-  fechaCreacion:           Date;
-  fechaAprobado:           Date;
-  estado:                  number;
-  autores:                 IUser[];
-  evaluadores:             IUser[];
-  directores:              IUser[];
+  id: string;
+  noRadicacion: number;
+  titulo: string;
+  fechaCreacion: Date;
+  fechaEntregaAEvaluador: Date | null;
+  fechaEntregaDeEvaluador: Date | null;
+  fechaAprobacion: Date | null;
+  estado: number;
+  noEntrega: number;
+  slug: string;
+  users: TableUser[];
 }
+
+export interface TableUser {
+  id: string,
+  name: string,
+  lastname: string,
+  email: string,
+  role: Role[]
+}
+
+export type Role = 'admin' | 'estudiante' | 'director' | 'evaluador' | 'jurado';

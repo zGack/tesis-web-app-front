@@ -1,2 +1,2 @@
-export * from './anteproyecto'
-export * from './user'
+export * from "./anteproyecto";
+export * from "./user.iterface";

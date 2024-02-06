@@ -9,3 +9,4 @@ export * from './StatusFilterPopover';
 export * from './TableFilters';
 export * from './TablePagination';
 export * from './TrabajoDeGradoTableDialog';
+export * from './AddUserDialog';

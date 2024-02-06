@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -29,7 +30,7 @@ model User {
   email    String  @unique
   password String
   active   Boolean @default(true)
-  role     Role[] @default([estudiante])
+  role     Role[]  @default([estudiante])
 
   anteproyectos    UsersOnAnteproyectos[]
   trabajosDeGrados UsersOnTrabajosDeGrado[]
@@ -38,13 +39,14 @@ model User {
 model Anteproyecto {
   id                      String           @id @default(uuid())
   noRadicacion            Int
-  titulo                   String           @unique
+  titulo                  String           @unique
   fechaCreacion           DateTime
   fechaEntregaAEvaluador  DateTime?
   fechaEntregaDeEvaluador DateTime?
   fechaAprobacion         DateTime?
   estado                  Int              @default(0)
   noEntrega               Int
+  slug                    String           @unique
   trabajoDeGrado          TrabajosDeGrado?
 
   users UsersOnAnteproyectos[]
@@ -71,19 +73,21 @@ model TrabajosDeGrado {
 }
 
 model UsersOnAnteproyectos {
-  user           User          @relation(fields: [userId], references: [id])
-  userId         String
-  anteproyecto   Anteproyecto? @relation(fields: [anteproyectoId], references: [id])
-  anteproyectoId String
+  user                   User          @relation(fields: [userId], references: [id])
+  userId                 String
+  anteproyecto           Anteproyecto? @relation(fields: [anteproyectoId], references: [id])
+  anteproyectoId         String
+  userOnAnteproyectoRole Role
 
   @@id([userId, anteproyectoId])
 }
 
 model UsersOnTrabajosDeGrado {
-  user             User             @relation(fields: [userId], references: [id])
-  userId           String
-  trabajoDeGrado   TrabajosDeGrado? @relation(fields: [trabajoDeGradoId], references: [id])
-  trabajoDeGradoId String
+  user                     User             @relation(fields: [userId], references: [id])
+  userId                   String
+  trabajoDeGrado           TrabajosDeGrado? @relation(fields: [trabajoDeGradoId], references: [id])
+  trabajoDeGradoId         String
+  userOnTrabajoDeGradoRole Role
 
   @@id([userId, trabajoDeGradoId])
 }

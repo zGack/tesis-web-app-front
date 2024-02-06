@@ -2,14 +2,14 @@
 import { Fragment } from 'react'
 import { useRouter } from 'next/navigation';
 
-import { AnteproyectoTable } from "@/data/anteproyecto";
 import { Dialog, Transition } from "@headlessui/react";
 
 import { STATUS_BADGES, StatusBadge } from "..";
 import { DialogDateBox, DialogLabelBox, DialogSection } from "./Dialog";
+import { Anteproyecto } from '@/interfaces';
 
 interface Props {
-  project: AnteproyectoTable;
+  project: Anteproyecto;
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
 }
@@ -84,23 +84,26 @@ export const AnteproyectoTableDialog = ({
                     
                     {/* Autores */}
                     <DialogSection 
-                      users={project.autores}
+                      users={project.users}
                       title="Autor"
                       pluralTitle="Autores"
+                      role='estudiante'
                     />
 
                     {/* Director */}
                     <DialogSection 
-                      users={project.directores}
+                      users={project.users}
                       title="Director"
                       pluralTitle="Directores"
+                      role='director'
                     />
                     
                     {/* Evaluador */}
                     <DialogSection 
-                      users={project.evaluadores}
+                      users={project.users}
                       title="Evaluador"
                       pluralTitle="Evaluadores"
+                      role='evaluador'
                     />
                     
                     {/* Entregas */}
@@ -108,25 +111,33 @@ export const AnteproyectoTableDialog = ({
                       <h3 className="text-md font-semibold leading-6">Entregas</h3>
                       <hr className="h-px mb-3 mt-1 bg-gray-300 border-0 "></hr>
                       <div className="grid grid-cols-5 gap-y-4 pl-3">
-
-                        <DialogLabelBox
-                          label="Entrega #"
-                        >
-                          {/* { project.nroEntrega } */}
-                          1
-                        </DialogLabelBox> 
-                        <div className='col-span-2'>
-                          <DialogDateBox
-                            date={project.fechaEntregaAEvaluador}
-                            title="Fecha de entrega al evaluador"
-                          />
-                        </div>
-                        <div className='col-span-2'>
-                          <DialogDateBox
-                            date={project.fechaEntregaDeEvaluador}
-                            title="Fecha de respuesta del evaluador"
-                          />
-                        </div>
+                        {
+                          project.noEntrega === 0 
+                          ? (
+                            <p className="mx-auto col-span-5 italic text-sm">No se han radicado entregas</p>
+                          )
+                          : (
+                            <>
+                              <DialogLabelBox
+                                label="Entrega #"
+                              >
+                                { project.noEntrega }
+                              </DialogLabelBox> 
+                              <div className='col-span-2'>
+                                <DialogDateBox
+                                  date={project.fechaEntregaAEvaluador}
+                                  title="Fecha de entrega al evaluador"
+                                />
+                              </div>
+                              <div className='col-span-2'>
+                                <DialogDateBox
+                                  date={project.fechaEntregaDeEvaluador}
+                                  title="Fecha de respuesta del evaluador"
+                                />
+                              </div>
+                            </>
+                          )
+                        }
                       </div>
                     </div>
 
@@ -142,9 +153,9 @@ export const AnteproyectoTableDialog = ({
                     <button 
                       className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                       type="button" 
-                      onClick={() => router.push('/anteproyecto/creacion')}
+                      onClick={() => router.push(`/anteproyecto/${project.slug}`)}
                     >
-                      Editar
+                      Ver
                     </button>
                   </div>
                 </div>
