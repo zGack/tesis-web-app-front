@@ -1,17 +1,31 @@
-'use server';
+"use server";
 
-export async function login(email = 'admin@admin.com', password = 'admin') {
-  const res = await fetch('https://thesis-spring-boot-ws.onrender.com/api/v1/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email, password
-    }),
-  })
+import { signIn } from "@/auth.config";
 
-  const token = await res.json()
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  try {
+    await signIn("credentials", {
+      ...Object.fromEntries(formData),
+      redirect: false,
+    });
 
-  return {token, status: res.status};
+    return "success";
+  } catch (error) {
+    return "CredentialsSignin";
+  }
+}
+
+export const login = async (email: string, password: string) => {
+  try {
+    await signIn('credentials', {email, password});
+  } catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+      message: 'No se pudo iniciar sesion'
+    }
+  }
 }

@@ -6,7 +6,7 @@ import prisma from "../lib/prisma";
  */
 async function main() {
   await prisma.usersOnTrabajosDeGrado.deleteMany();
-  await prisma.trabajosDeGrado.deleteMany();
+  await prisma.trabajoDeGrado.deleteMany();
   await prisma.usersOnAnteproyectos.deleteMany();
   await prisma.anteproyecto.deleteMany();
   await prisma.user.deleteMany();
@@ -47,18 +47,35 @@ async function main() {
 
   });
 
-
   // 4. Insertar trabajos de grado
-  // trabajosDeGrados.forEach( async(trabajoDeGrado) => {
-  //   const { users, anteproyecto, ...rest } = trabajoDeGrado;
+  trabajosDeGrados.forEach( async(trabajoDeGrado) => {
+    const { users, anteproyecto, ...rest } = trabajoDeGrado;
 
-  //   const trabajoDeGradoDB = await prisma.trabajosDeGrado.create({
-  //     data: rest
-  //   })
-  // })
-  // 5. Insertar las relaciones de usuario - trabajo de grado
+    const anteproyectoDB = await prisma.anteproyecto.findUnique({
+      where: { slug: anteproyecto },
+    })
 
+    const trabajoDeGradoDB = await prisma.trabajoDeGrado.create({
+      data: {
+        ...rest,
+        anteproyectoId: anteproyectoDB!.id,
+        slug: anteproyectoDB!.slug
+      }
+    })
 
+    // 3. Insertar las relaciones de usuario - anteproyecto
+    const usersOnTrabajosDeGradoData = users.map( (user) => ({
+      userId: usersMap[user.email],
+      trabajoDeGradoId: trabajoDeGradoDB.id,
+      userOnTrabajoDeGradoRole: user.role
+    }));
+
+    await prisma.usersOnTrabajosDeGrado.createMany({
+      data: usersOnTrabajosDeGradoData
+    })
+
+  })
+  
   console.log("Seed ejecutado exitosamente.");
 }
 

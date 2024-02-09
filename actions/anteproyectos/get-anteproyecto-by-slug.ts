@@ -12,11 +12,11 @@ export const getAnteproyectoBySlug = async ( slug: string ) => {
                 name: true,
                 lastname: true,
                 email: true,
-                role: true
               }
-            }
+            },
+            userOnAnteproyectoRole: true
           }
-        }
+        },
       },
       where: {
         slug: slug
@@ -27,7 +27,7 @@ export const getAnteproyectoBySlug = async ( slug: string ) => {
 
     return {
       ...anteproyecto,
-        users: anteproyecto.users.map(({user}) => ({...user}))
+        users: anteproyecto.users.map(({user, userOnAnteproyectoRole}) => ({...user, role: [userOnAnteproyectoRole]}))
     };
 
   } catch (error) {

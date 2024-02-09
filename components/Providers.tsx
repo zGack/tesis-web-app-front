@@ -2,7 +2,7 @@
 
 import React, { FC, PropsWithChildren } from 'react';
 
-import { AuthProvider } from '@/context';
+import { SessionProvider } from 'next-auth/react';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -10,9 +10,9 @@ interface Props {
 
 const Providers: FC<PropsWithChildren<Props>> = ({ children }) => {
   return (
-    <AuthProvider>
+    <SessionProvider>
       { children }
-    </AuthProvider>
+    </SessionProvider>
   )
 }
 

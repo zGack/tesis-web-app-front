@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { STATUS_BADGES, StatusBadge } from "@/components";
 import { Anteproyecto } from "@/interfaces";
 import { DialogDateBox, DialogLabelBox, DialogSection } from "@/components/projects/Dialog";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 interface Props {
   anteproyecto: Anteproyecto;
@@ -14,14 +15,26 @@ interface Props {
 const AnteproyectoSlugView = ( { anteproyecto }: Props ) => {
 
   const router = useRouter();
-  console.log(anteproyecto);
   
+  const { data: session } = useSession();
+
+  if ( !session?.user ) {
+    router.replace('/login');
+  }
 
   return (
     <main className="flex justify-center py-8">
       <div className="border-2 border-gray-200 shadow-sm rounded-sm max-w-4xl p-5 flex flex-col grow justify-center" >
         <div>
-          <h1 className="font-semibold text-2xl mb-4">Anteproyecto</h1>
+          <div className="flex flex-row justify-between items-center">
+            <h1 className="font-semibold text-2xl mb-4">Anteproyecto</h1>
+            {
+              anteproyecto.estado === 1 &&
+              <Link href={`/trabajo-de-grado/creacion?anteproyecto=${anteproyecto.slug}`} className="font-medium text-javeriana-blue-600 hover:underline" data-cy="create-btn">
+                Crear Trabajo de Grado
+              </Link>
+            }
+          </div>
           <p className="text-md text-gray-700">
             { anteproyecto.titulo }
           </p>
@@ -125,17 +138,22 @@ const AnteproyectoSlugView = ( { anteproyecto }: Props ) => {
               <button 
                 className="text-white bg-gray-500 hover:bg-gray-600 outline-gray-600 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center" 
                 type="button" 
-                onClick={() => router.push('/anteproyectos')}
+                onClick={() => router.back()}
               >
                   Volver
               </button>
-              <button 
-                className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
-                type="submit" 
-                onClick={() => router.push(`/anteproyecto/editar/${anteproyecto.slug}`)}
-              >
-                  Editar
-              </button>
+              {
+                ( session!.user.role.includes('admin') ) &&
+                (
+                <button 
+                  className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
+                  type="submit" 
+                  onClick={() => router.push(`/anteproyecto/editar/${anteproyecto.slug}`)}
+                >
+                    Editar
+                </button>
+                )
+              }
             </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { ValidRoles } from "./user.iterface";
 
 export interface Anteproyecto {
   id: string;
@@ -15,11 +14,11 @@ export interface Anteproyecto {
 }
 
 export interface TableUser {
-  id: string,
-  name: string,
-  lastname: string,
-  email: string,
-  role: Role[]
+  id: string;
+  name: string;
+  lastname: string;
+  email: string;
+  role: Role[];
 }
 
-export type Role = 'admin' | 'estudiante' | 'director' | 'evaluador' | 'jurado';
+export type Role = "admin" | "estudiante" | "director" | "evaluador" | "jurado";

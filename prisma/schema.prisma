@@ -37,24 +37,23 @@ model User {
 }
 
 model Anteproyecto {
-  id                      String           @id @default(uuid())
+  id                      String                 @id @default(uuid())
   noRadicacion            Int
-  titulo                  String           @unique
+  titulo                  String                 @unique
   fechaCreacion           DateTime
   fechaEntregaAEvaluador  DateTime?
   fechaEntregaDeEvaluador DateTime?
   fechaAprobacion         DateTime?
-  estado                  Int              @default(0)
+  estado                  Int                    @default(0)
   noEntrega               Int
-  slug                    String           @unique
-  trabajoDeGrado          TrabajosDeGrado?
+  slug                    String                 @unique
+  users                   UsersOnAnteproyectos[]
+  TrabajoDeGrado          TrabajoDeGrado?
 
-  users UsersOnAnteproyectos[]
-
-  @@index([titulo])
+  @@index([titulo, slug])
 }
 
-model TrabajosDeGrado {
+model TrabajoDeGrado {
   id                String    @id @default(uuid())
   periodo           String
   noAct             Int
@@ -62,14 +61,16 @@ model TrabajosDeGrado {
   mensionHonor      Boolean
   notaDefinitiva    Float?
   gradoPostular     Grado     @default(pregrado)
+  fechaCreacion     DateTime
   fechaSustentacion DateTime?
+  slug              String    @unique
 
   anteproyecto   Anteproyecto @relation(fields: [anteproyectoId], references: [id])
   anteproyectoId String       @unique
 
   users UsersOnTrabajosDeGrado[]
 
-  @@index([titulo])
+  @@index([titulo, slug])
 }
 
 model UsersOnAnteproyectos {
@@ -83,9 +84,9 @@ model UsersOnAnteproyectos {
 }
 
 model UsersOnTrabajosDeGrado {
-  user                     User             @relation(fields: [userId], references: [id])
+  user                     User            @relation(fields: [userId], references: [id])
   userId                   String
-  trabajoDeGrado           TrabajosDeGrado? @relation(fields: [trabajoDeGradoId], references: [id])
+  trabajoDeGrado           TrabajoDeGrado? @relation(fields: [trabajoDeGradoId], references: [id])
   trabajoDeGradoId         String
   userOnTrabajoDeGradoRole Role
 

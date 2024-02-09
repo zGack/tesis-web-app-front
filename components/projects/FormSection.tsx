@@ -20,6 +20,7 @@ export const FormSection = ({ children, title, buttonAlias = title, onAddBtnClic
         <div className='flex mt-2'>
           {/* Add Input Button */}
           <button 
+            data-cy={`add-${title}-btn`}
             type="button" 
             className="font-medium p-1 outline-sky-700 text-sky-700 hover:text-sky-900 inline-flex max-w-fit items-center text-center capitalize"
             onClick={onAddBtnClick}

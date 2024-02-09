@@ -86,6 +86,7 @@ const AnteproyectoForm = ({ anteproyecto, users, creacion = false }: Props) => {
   const [ showErrorAlert, setShowErrorAlert ] = useState(false);
   const [ successMsg, setSuccessMsg ] = useState('');
   const [ showSuccessAlert, setShowSuccessAlert ] = useState(false);
+
   const [ isApproved, setIsApproved ] = useState(false);
 
   const openAddUserModal = (userRole: Role) => {
@@ -123,18 +124,21 @@ const AnteproyectoForm = ({ anteproyecto, users, creacion = false }: Props) => {
       estado: data.estado.id + 1,
       users: data.users.map(({id, role}) => ({id, role: role[0]})),
       noEntrega: anteproyecto.noEntrega ?? 0,
-      slug: anteproyecto.slug ?? data.titulo.toLowerCase().replace(/ /g, '-' ).trim()
+      slug: anteproyecto.slug ?? data.titulo.toLowerCase().replace(/ /g, '-' ).trim(),
+      fechaAprobacion: ( isApproved && data.fechaAprobacion === undefined) ? new Date() : data.fechaAprobacion
     };
+
+    console.log(anteproyectoToSubmit);
 
     const response = await createUpdateAnteproyecto(JSON.stringify(anteproyectoToSubmit));
 
     if ( !response?.ok ) {
-      setErrorMsg(`Ocurrio un problema al ${ creacion ? 'crear':'guardar'} el anteproyecto.`);
+      setErrorMsg(`Ocurrió un problema al ${ creacion ? 'crear':'guardar'} el anteproyecto.`);
       setShowErrorAlert(true);
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       return;
     }
-
+    window.history.pushState(null,'','/anteproyectos');
     router.replace(`/anteproyecto/${anteproyectoToSubmit.slug}`);
   };
 
@@ -143,13 +147,13 @@ const AnteproyectoForm = ({ anteproyecto, users, creacion = false }: Props) => {
     const response = await deleteAnteproyecto(anteproyecto.id!);
 
     if ( !response?.ok ) {
-      setErrorMsg(`Ocurrio un problema al borrar el anteproyecto.`);
+      setErrorMsg(`Ocurrió un problema al borrar el anteproyecto.`);
       setShowErrorAlert(true);
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       return;
     }
 
-    router.replace(`/anteproyectos`);
+    router.push(`/anteproyectos`);
   }
 
   return (
@@ -184,6 +188,7 @@ const AnteproyectoForm = ({ anteproyecto, users, creacion = false }: Props) => {
                     </span>
                     <input
                       type="text"
+                      data-cy="radicado-input"
                       className="rounded-none rounded-r-sm outline-gray-400 bg-gray-50 border text-gray-900 block flex-1 w-full text-sm border-gray-300 p-2.5 min-w-fit"
                       placeholder="Nro. Radicado"
                       {...register("noRadicacion", {
@@ -259,6 +264,7 @@ const AnteproyectoForm = ({ anteproyecto, users, creacion = false }: Props) => {
               {/* Campo Titulo Anteproyecto */}
               <FormSection title="Título Anteproyecto" showAddBtn={false}>
                 <input
+                  data-cy="titulo-input"
                   type="text"
                   className="bg-gray-50 border border-gray-300 outline-gray-400 text-gray-900 text-sm rounded-sm block w-full p-2.5 "
                   placeholder="Titulo completo del anteproyecto"
@@ -538,13 +544,14 @@ const AnteproyectoForm = ({ anteproyecto, users, creacion = false }: Props) => {
                 <button
                   className="text-white bg-gray-500 hover:bg-gray-600 outline-gray-600 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center"
                   type="button"
-                  onClick={() => router.push("/anteproyectos")}
+                  onClick={() => router.back()}
                 >
                   Volver
                 </button>
                 <button
                   className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                   type="submit"
+                  data-cy="create-anteproyecto-btn"
                 >
                   Guardar
                 </button>

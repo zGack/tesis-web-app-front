@@ -1,2 +1,2 @@
 export * from "./anteproyecto";
-export * from "./user.iterface";
+export * from "./user.interface";

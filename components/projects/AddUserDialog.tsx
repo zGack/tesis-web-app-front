@@ -136,6 +136,7 @@ export const AddUserDialog = ({
                       <div className="relative mt-1">
                         <div className="relative">
                           <Combobox.Input 
+                            data-cy="search-user-input"
                             className="bg-gray-50 border border-gray-300 outline-gray-400 text-gray-900 text-sm rounded-sm block w-full p-2.5"
                             onChange={(event) => onSearchUserChange(event.target.value)}
                             placeholder={`Buscar ${userType} por nombre`}
@@ -174,7 +175,9 @@ export const AddUserDialog = ({
                                   </div>
                                 ) : (
                                 usersFounded.map((user: User) => (
-                                  <Combobox.Option key={user.id} value={user} className="cursor-default hover:cursor-pointer select-none py-2 pr-4">
+                                  <Combobox.Option key={user.id} value={user} className="cursor-default hover:cursor-pointer select-none py-2 pr-4" 
+                                  data-cy={`${user.name}-result` }
+                                  >
                                     <div className="pl-3">
                                       <p className="text-base font-medium">{`${user.name} ${user.lastname}`}</p>
                                       <p className="font-normal text-gray-500">{user.email}</p>
@@ -200,6 +203,7 @@ export const AddUserDialog = ({
                       className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                       type="button" 
                       onClick={() => handleAddUser()}
+                      data-cy={`add-user-btn` }
                     >
                       Agregar
                     </button>

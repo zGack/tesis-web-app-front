@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
+import { deleteTrabajoDeGrado } from "../trabajosDeGrado/delete-trabajo-de-grado";
 
 export const deleteAnteproyecto = async ( id: string ) => {
   
@@ -15,6 +16,27 @@ export const deleteAnteproyecto = async ( id: string ) => {
   
   try {
 
+    const trabajoDeGradoId = await prisma.trabajoDeGrado.findUnique({
+      where: { anteproyectoId: id },
+      select: {
+        id: true
+      }
+    }) 
+
+    if ( trabajoDeGradoId?.id ) {
+      await prisma.usersOnTrabajosDeGrado.deleteMany({
+        where: { 
+          trabajoDeGradoId: trabajoDeGradoId?.id
+        }
+      })
+
+      await prisma.trabajoDeGrado.delete({
+        where: {
+          anteproyectoId: id
+        }
+      })
+    }
+
     await prisma.usersOnAnteproyectos.deleteMany({
       where: { 
         anteproyectoId: id
@@ -22,7 +44,14 @@ export const deleteAnteproyecto = async ( id: string ) => {
     })
 
     const anteproyecto = await prisma.anteproyecto.delete({
-      where: { id },  
+      where: { id },
+      include: {
+        trabajoDeGrado: {
+          select: {
+            id: true
+          }
+        }
+      }
     })
 
     revalidatePath('/anteproyectos');

@@ -7,6 +7,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { STATUS_BADGES, StatusBadge } from "..";
 import { DialogDateBox, DialogLabelBox, DialogSection } from "./Dialog";
 import { Anteproyecto } from '@/interfaces';
+import Link from 'next/link';
 
 interface Props {
   project: Anteproyecto;
@@ -21,6 +22,8 @@ export const AnteproyectoTableDialog = ({
   }: Props) => {
     
   const router = useRouter();
+
+  if ( !project ) { return (<></>)};
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -53,7 +56,17 @@ export const AnteproyectoTableDialog = ({
                   as="h2"
                   className="text-xl font-semibold leading-6 text-gray-900 mb-4"
                 >
-                  Anteproyecto
+                  <div className="flex flex-row justify-between items-center">
+                    <div>
+                      Anteproyecto
+                    </div>
+                    {
+                      project.estado === 1 &&
+                      <Link href={`/trabajo-de-grado/creacion?anteproyecto=${project.slug}`} className="text-sm text-javeriana-blue-600 hover:underline" data-cy="create-btn">
+                        Crear Trabajo de Grado
+                      </Link>
+                    }
+                  </div>
                   <p className="text-base font-normal mt-3">{project.titulo}</p>
                 </Dialog.Title>
                 <div className="mt-2">

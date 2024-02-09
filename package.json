@@ -7,24 +7,27 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "ts-node seed/seed-database.ts"
+    "seed": "ts-node seed/seed-database.ts",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@prisma/client": "5.8.1",
     "@tanstack/react-table": "^8.10.3",
     "@types/node": "20.6.0",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.18",
     "autoprefixer": "10.4.15",
     "axios": "^1.6.0",
+    "bcryptjs": "^2.4.3",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
     "eslint": "8.49.0",
     "eslint-config-next": "^14.1.0",
     "js-cookie": "^3.0.5",
     "next": "^14.1.0",
-    "next-auth": "^5.0.0-beta.5",
+    "next-auth": "^5.0.0-beta.3",
     "postcss": "8.4.29",
     "react": "^18.2.0",
     "react-datepicker": "^4.21.0",
@@ -35,8 +38,10 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/js-cookie": "^3.0.6",
     "@types/react-datepicker": "^4.19.1",
+    "cypress": "^13.6.4",
     "prisma": "^5.8.1",
     "ts-node": "^10.9.2"
   }

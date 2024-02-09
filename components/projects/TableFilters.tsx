@@ -26,7 +26,7 @@ const TableFilters = ({
   )
 
   return (
-    <div className="flex space-x-2">
+    <div className="flex space-x-3 items-center">
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -46,6 +46,11 @@ const TableFilters = ({
         showStatusFilter &&
         <StatusFilterPopover columnFilters={columnFilters} setColumnFilters={setColumnFilters} />
       }
+
+      <div className="flex items-center ">
+          <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "/>
+          <label className="ms-2 text-sm font-medium text-gray-900">Mostrar mis anteproyectos</label>
+      </div>
     </div>
   )
 }

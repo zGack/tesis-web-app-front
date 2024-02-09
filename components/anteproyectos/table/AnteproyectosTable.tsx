@@ -20,6 +20,7 @@ import { Anteproyecto } from "@/interfaces";
 import { AnteproyectoTableColumns } from "./AnteproyectoTableColumns";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 interface Props {
   anteproyectos: Anteproyecto[]
@@ -27,6 +28,13 @@ interface Props {
 
 
 export const AnteproyectosTable = ( { anteproyectos }: Props ) => {
+
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  if ( !session?.user ) {
+    router.replace('/login');
+  }
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -59,7 +67,6 @@ export const AnteproyectosTable = ( { anteproyectos }: Props ) => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-  const router = useRouter();
 
   return (
     <main className="flex justify-center w-full my-6">
@@ -73,9 +80,15 @@ export const AnteproyectosTable = ( { anteproyectos }: Props ) => {
             placeholderLabel="Anteproyecto"
           />
           
-          <Link href="/anteproyecto/creacion" className="font-medium text-javeriana-blue-600 hover:underline">
-            Crear Anteproyecto
-          </Link>
+          {
+            session?.user.role.includes('admin') &&
+            (
+              <Link href="/anteproyecto/creacion" className="font-medium text-javeriana-blue-600 hover:underline" data-cy="create-btn">
+                Crear Anteproyecto
+              </Link>
+            )
+            
+          }
         </div>
 
         {/* TABLE LAYOUT */}
@@ -165,43 +178,58 @@ export const AnteproyectosTable = ( { anteproyectos }: Props ) => {
           </thead>
           {/* TABLE BODY */}
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                className="bg-white border-b max-w-xs hover:bg-gray-50 hover:cursor-pointer"
-                key={row.id}
-                onClick={() => openModal(row.original)}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td className="px-6 py-4" key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            {
+              table.getRowModel().rows.map((row) => (
+                <tr
+                  className="bg-white border-b max-w-xs hover:bg-gray-50 hover:cursor-pointer"
+                  key={row.id}
+                  onClick={() => openModal(row.original)}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td className="px-6 py-4" key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            }
           </tbody>
+            
         </table>
+        {
+          anteproyectos.length < 1 && 
+          (
+            <div className="flex w-full justify-center my-3">
+              <p className="mx-auto col-span-5 italic text-sm">No hay anteproyectos registrados.</p>
+            </div>
+          )
+        }
 
         {/* TABLE FOOTER */}
-        <div className="flex flex-row items-center justify-between mt-2">
-          <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-            Anteproyectos:
-            <span className="font-semibold text-gray-900 mx-1">
-              {table.getPrePaginationRowModel().rows.length}
-            </span>
-          </span>
+        { anteproyectos.length > 0 && 
+          (
+            <div className="flex flex-row items-center justify-between mt-2">
+              <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+                Anteproyectos:
+                <span className="font-semibold text-gray-900 mx-1">
+                  {table.getPrePaginationRowModel().rows.length}
+                </span>
+              </span>
 
-          {/* PAGINATION COMPONENT */}
-          <TablePagination
-            totalCount={table.getPrePaginationRowModel().rows.length}
-            currentPage={table.getState().pagination.pageIndex + 1}
-            pageSize={table.getState().pagination.pageSize}
-            onNext={table.nextPage}
-            canNext={table.getCanNextPage()}
-            onPrev={table.previousPage}
-            canPrev={table.getCanPreviousPage()}
-            onSetPage={table.setPageIndex}
-          />
-        </div>
+              {/* PAGINATION COMPONENT */}
+              <TablePagination
+                totalCount={table.getPrePaginationRowModel().rows.length}
+                currentPage={table.getState().pagination.pageIndex + 1}
+                pageSize={table.getState().pagination.pageSize}
+                onNext={table.nextPage}
+                canNext={table.getCanNextPage()}
+                onPrev={table.previousPage}
+                canPrev={table.getCanPreviousPage()}
+                onSetPage={table.setPageIndex}
+              />
+            </div>
+          )
+        }
       </div>
 
       {/* Dialog */}

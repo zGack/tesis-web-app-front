@@ -1,3 +1,5 @@
+import bcryptjs from 'bcryptjs';
+
 type ValidRoles = 'admin' | 'estudiante' | 'evaluador' | 'director' | 'jurado';
 type ValidGrades = 'pregrado' | 'especializacion' | 'maestria' | 'doctorado';
 
@@ -25,13 +27,14 @@ export interface SeedAnteproyecto {
 
 interface SeedTrabajoDeGrado {
   periodo:                 string;
-  noAct:                   string;
+  noAct:                   number;
   titulo:                  string;
   mensionHonor:            boolean;
-  notaDefinitiva:          number | undefined;
+  notaDefinitiva:          number | null;
   gradoPostular:           ValidGrades;
-  fechaSutentacion:        Date | undefined;
-  users:                   string[];
+  fechaCreacion:           Date;
+  fechaSustentacion:       Date | null ;
+  users:                   {email: string, role: ValidRoles}[];
   anteproyecto:            string; 
 }
 
@@ -44,10 +47,18 @@ interface SeedData {
 export const initialData: SeedData = {
   users: [
     {
+      email: "admin@admin.com",
+      name: "admin",
+      lastname: "admin",
+      password: bcryptjs.hashSync('123123'),
+      role: ['admin'],
+      active: true,
+    },
+    {
       email: "sebasmenfe99@javerianacali.edu.co",
       name: "Sebastian",
       lastname: "Mena Ferreira",
-      password: '123123',
+      password: bcryptjs.hashSync('123123'),
       role: ['estudiante'],
       active: true,
     },
@@ -55,7 +66,7 @@ export const initialData: SeedData = {
       email: "paulmartinez@javerianacali.edu.co",
       name: "Paul Harvey",
       lastname: "Martinez",
-      password: '123123',
+      password: bcryptjs.hashSync('123123'),
       role: ['estudiante'],
       active: true
     },
@@ -63,7 +74,7 @@ export const initialData: SeedData = {
       email: "geilerhipia@javerianacali.edu.co",
       name: "Geiler Orlando",
       lastname: "Hipia",
-      password: '123123',
+      password: bcryptjs.hashSync('123123'),
       role: ['estudiante'],
       active: true,
     },
@@ -71,7 +82,7 @@ export const initialData: SeedData = {
       email: "alejobeltran@javerianacali.edu.co",
       name: "Alejandro",
       lastname: "Beltran",
-      password: '123123',
+      password: bcryptjs.hashSync('123123'),
       role: ['estudiante'],
       active: true,
     },
@@ -79,31 +90,31 @@ export const initialData: SeedData = {
       email: "juancmartinez@javerianacali.edu.co",
       name: "Juan Carlos",
       lastname: "Martinez",
-      password: '123123',
-      role: ['evaluador', 'jurado'],
+      password: bcryptjs.hashSync('123123'),
+      role: ['evaluador', 'jurado','director'],
       active: true,
     },
     {
       email: "gmsarria@javerianacali.edu.co",
       name: "Gerardo",
       lastname: "Sarria",
-      password: '123123',
-      role: ['director'],
+      password: bcryptjs.hashSync('123123'),
+      role: ['director','evaluador','jurado'],
       active: true,
     },
     {
       email: "cramirez@javerianacali.edu.co",
       name: "Carlos",
       lastname: "Ramirez",
-      password: '123123',
-      role: ['evaluador','jurado'],
+      password: bcryptjs.hashSync('123123'),
+      role: ['evaluador','jurado','director'],
       active: true,
     },
     {
       name: "John",
       lastname: "Doe",
       email: "johndoe@javerianacali.edu.co",
-      password: '123123',
+      password: bcryptjs.hashSync('123123'),
       role: ['estudiante'],
       active: true,
     },
@@ -111,7 +122,7 @@ export const initialData: SeedData = {
       name: "Matthew",
       lastname: "Anderson",
       email: "matthewanderson@javerianacali.edu.co",
-      password: '123123',
+      password: bcryptjs.hashSync('123123'),
       role: ['director'],
       active: true,
     },
@@ -119,23 +130,23 @@ export const initialData: SeedData = {
       name: "Victoria",
       lastname: "Martin",
       email: "victoriamartin@javerianacali.edu.co",
-      password: '123321',
-      role: ['evaluador'],
+      password: bcryptjs.hashSync('123123'),
+      role: ['evaluador','director'],
       active: true,
     },
     {
       name: "James",
       lastname: "Thompson",
       email: "jamesthompson@javerianacali.edu.co",
-      password: '123321',
-      role: ['evaluador'],
+      password: bcryptjs.hashSync('123123'),
+      role: ['evaluador','jurado'],
       active: true,
     },
     {
       name: "Jane",
       lastname: "Smith",
       email: "janesmith@javerianacali.edu.co",
-      password: "123321",
+      password: bcryptjs.hashSync('123123'),
       active: true,
       role: ['estudiante'],
     },
@@ -143,7 +154,7 @@ export const initialData: SeedData = {
       name: "Olivia",
       lastname: "Thomas",
       email: "oliviathomas@javerianacali.edu.co",
-      password: '123321',
+      password: bcryptjs.hashSync('123123'),
       role: ['director'],
       active: true,
     },
@@ -151,7 +162,7 @@ export const initialData: SeedData = {
       name: "Samantha",
       lastname: "Garcia",
       email: "samanthagarcia@javerianacali.edu.co",
-      password: "123321",
+      password: bcryptjs.hashSync('123123'),
       role: ['evaluador'],
       active: true,
     },
@@ -159,7 +170,7 @@ export const initialData: SeedData = {
       name: "Joseph",
       lastname: "Rodriguez",
       email: "josephrodriguez@javerianacali.edu.co",
-      password: "123321",
+      password: bcryptjs.hashSync('123123'),
       role: ['evaluador'],
       active: true,
     },
@@ -167,7 +178,7 @@ export const initialData: SeedData = {
       name: "David",
       lastname: "Johnson",
       email: "davidjohnson@javerianacali.edu.co",
-      password: '123321',
+      password: bcryptjs.hashSync('123123'),
       active: true,
       role: ['estudiante'],
     },
@@ -175,7 +186,7 @@ export const initialData: SeedData = {
       name: "Andrew",
       lastname: "Jackson",
       email: "andrewjackson@javerianacali.edu.co",
-      password: '123321',
+      password: bcryptjs.hashSync('123123'),
       role: ['director'],
       active: true,
     },
@@ -183,7 +194,7 @@ export const initialData: SeedData = {
       name: "Sophia",
       lastname: "White",
       email: "sophiawhite@javerianacali.edu.co",
-      password: '123321',
+      password: bcryptjs.hashSync('123123'),
       active: true,
       role: ['director'],
     },
@@ -191,7 +202,7 @@ export const initialData: SeedData = {
       name: "Michael",
       lastname : "Brown",
       email: "michaelbrown@javerianacali.edu.co",
-      password: '123321',
+      password: bcryptjs.hashSync('123123'),
       active: true,
       role: ['estudiante'],
     },
@@ -199,7 +210,7 @@ export const initialData: SeedData = {
       name: "Abigail",
       lastname: "Lopez",
       email: "abigaillopez@javerianacali.edu.co",
-      password: '123321',
+      password: bcryptjs.hashSync('123123'),
       role: ['evaluador'],
       active: true,
     }
@@ -690,51 +701,90 @@ export const initialData: SeedData = {
   trabajosDeGrados: [
   {
     periodo: "2023-2",
-    noAct: "3223",
+    noAct: 3223,
     titulo: "Sistema Gestor de Proyectos de Grado",
     anteproyecto: 'sistema_gestor_de_proyectos_de_grado',
     mensionHonor: true,
     notaDefinitiva: 4.3,
     gradoPostular: 'pregrado',
-    fechaSutentacion: new Date("2023-07-21"),
+    fechaCreacion: new Date("2023-07-21"),
+    fechaSustentacion: null,
     users: [
-      "sebasmenfe99@javerianacali.edu.co",
-      "paulmartinez@javerianacali.edu.co",
-      "juancmartinez@javerianacali.edu.co",
-      "gmsarria@javerianacali.edu.co",
-    ]
+        {
+          email: "sebasmenfe99@javerianacali.edu.co",
+          role: 'estudiante'
+        },
+        {
+          email: "paulmartinez@javerianacali.edu.co",
+          role: 'estudiante'
+        },
+        {
+          email: "gmsarria@javerianacali.edu.co",
+          role: 'director'
+        },
+        {
+          email: "juancmartinez@javerianacali.edu.co",
+          role: 'jurado'
+        },
+      ]
   },
   {
     periodo: "2023-1",
-    noAct: "1111",
+    noAct: 1111,
     titulo: 'Implementación de una aplicación web que facilite el uso de técnicas de reducción de casos de prueba del software',
     anteproyecto: 'implemntacion_de_una_aplicacion_web_que_facilita_el_uso_de_tecnicas_de_reduccion_de_casos_de_prueba_del_software',
-    fechaSutentacion: new Date("2023-02-21"),
+    fechaCreacion: new Date("2023-02-21"),
+    fechaSustentacion: new Date("2023-07-21"),
     notaDefinitiva: 4.5,
     mensionHonor: false,
     gradoPostular: 'pregrado',
     users: [
-      "abeltran@javerianacali.edu.co",
-      "ghipiam@javerianacali.edu.co",
-      "cramirez@javerianacali.edu.co",
-      "juanpgarcia@javerianacali.edu.co",
-    ]
+        {
+          email: "geilerhipia@javerianacali.edu.co",
+          role: 'estudiante'
+        },
+        {
+          email: "alejobeltran@javerianacali.edu.co",
+          role: 'estudiante'
+        },
+        {
+          email: "juancmartinez@javerianacali.edu.co",
+          role: 'director'
+        },
+        {
+          email: "cramirez@javerianacali.edu.co",
+          role: 'jurado'
+        },
+      ]
   },
   {
     periodo: "2019-2",
-    noAct: "2222",
+    noAct: 2222,
     titulo: "Degree Project 1",
     anteproyecto: 'degree_project_1',
-    fechaSutentacion: new Date("2020-01-01"),
+    fechaCreacion: new Date("2020-01-01"),
+    fechaSustentacion: new Date("2020-03-02"),
     mensionHonor: false,
     gradoPostular: 'especializacion',
     notaDefinitiva: 4.0,
     users: [
-         "johndoe@javerianacali.edu.co",
-         "matthewanderson@javerianacali.edu.co",
-         "victoriamartin@javerianacali.edu.co",
-         "jamesthompson@javerianacali.edu.co",
-    ],
+        {
+          email: "johndoe@javerianacali.edu.co",
+          role: 'estudiante'
+        },
+        {
+          email: "matthewanderson@javerianacali.edu.co",
+          role: 'estudiante'
+        },
+        {
+          email: "victoriamartin@javerianacali.edu.co",
+          role: 'director'
+        },
+        {
+          email: "jamesthompson@javerianacali.edu.co",
+          role: 'jurado'
+        },
+      ],
   }
   ]
 }

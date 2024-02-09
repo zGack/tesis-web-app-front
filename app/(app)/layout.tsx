@@ -1,16 +1,23 @@
+import { auth } from "@/auth.config";
+import { Header } from "@/components/ui";
+import { redirect } from "next/navigation";
+import React from "react";
 
-import { Header } from '@/components/ui'
-import React from 'react'
-
-export default function AppLayout({
+export default async function AppLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
+  const session = await auth();
+
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   return (
     <main className="flex flex-col min-h-screen">
-      <Header/>
+      <Header currentUserRoles={session.user.role} />
       {children}
     </main>
-  )
+  );
 }
