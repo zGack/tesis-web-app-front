@@ -16,7 +16,7 @@ import {
 
 import { AnteproyectoTableDialog, TablePagination } from "@/components/projects";
 import TableFilters from "@/components/projects/TableFilters";
-import { Anteproyecto } from "@/interfaces";
+import { Anteproyecto, User } from "@/interfaces";
 import { AnteproyectoTableColumns } from "./AnteproyectoTableColumns";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -24,10 +24,11 @@ import { useSession } from "next-auth/react";
 
 interface Props {
   anteproyectos: Anteproyecto[]
+  user: Partial<User>;
 }
 
 
-export const AnteproyectosTable = ( { anteproyectos }: Props ) => {
+export const AnteproyectosTable = ( { anteproyectos, user }: Props ) => {
 
   const router = useRouter();
   const { data: session } = useSession();
@@ -184,9 +185,10 @@ export const AnteproyectosTable = ( { anteproyectos }: Props ) => {
                   className="bg-white border-b max-w-xs hover:bg-gray-50 hover:cursor-pointer"
                   key={row.id}
                   onClick={() => openModal(row.original)}
+                  data-cy={`${row.original.titulo}`}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td className="px-6 py-4" key={cell.id}>
+                    <td className="px-6 py-4" key={cell.id} >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
@@ -237,6 +239,7 @@ export const AnteproyectosTable = ( { anteproyectos }: Props ) => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         project={selectedProject}
+        user={user}
       />
     </main>
   );

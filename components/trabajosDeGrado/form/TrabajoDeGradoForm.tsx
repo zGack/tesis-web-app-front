@@ -116,8 +116,6 @@ const TrabajoDeGradoForm = ({ trabajoDeGrado, users, creacion = false }: Props) 
       notaDefinitiva: data.notaDefinitiva === '' ? null : Number(data.notaDefinitiva),
     };
 
-    console.log(trabajoDeGradoToSubmit);
-
     const response = await createUpdateTrabajoDeGrado(JSON.stringify(trabajoDeGradoToSubmit));
 
     if ( !response?.ok ) {
@@ -205,6 +203,7 @@ const TrabajoDeGradoForm = ({ trabajoDeGrado, users, creacion = false }: Props) 
                   </label>
                   <input 
                     type="text" 
+                    data-cy="acta"
                     className="block max-w-[90px] rounded-none rounded-r-sm outline-gray-400 bg-gray-50 border text-gray-900 flex-1 text-sm border-gray-300 p-2.5" 
                     placeholder="Acta Nro." 
                     { ...register("noAct", {
@@ -547,6 +546,7 @@ const TrabajoDeGradoForm = ({ trabajoDeGrado, users, creacion = false }: Props) 
                   className="text-white bg-red-700 hover:bg-red-800 outline-red-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                   type="button"
                   onClick={() => onDeleteTrabajoDeGrado()}
+                  data-cy="borrar-trabajo"
                 >
                   Borrar
                 </button>

@@ -19,7 +19,7 @@ import TableFilters from "@/components/projects/TableFilters";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { User } from "@/interfaces";
+import { User, ValidRoles } from "@/interfaces";
 import { UsersTableColumns } from "./UsersTableColums";
 import UsersTableFilters from "./UsersTableFilter";
 import { UserTableDialog } from "./UserTableDialog";
@@ -44,16 +44,15 @@ export const UsersTable = ( { users }: Props ) => {
   );
 
   const openModal = (rowData: User) => {
-    setIsOpen(true);
     setSelectedUser(rowData);
-    console.log('hola', selectedUser);
+    setIsOpen(true);
   };
 
   const table = useReactTable({
     data: users,
     columns: UsersTableColumns,
     initialState: {
-      pagination: { pageSize: 7 }, // Numero de anteproyectos por pagina
+      pagination: { pageSize: 7 }, // Numero de usuarios por pagina
     },
     state: {
       columnFilters,
@@ -64,6 +63,20 @@ export const UsersTable = ( { users }: Props ) => {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  const handleCreateUser = () => {
+    const newUser = {
+      id: '',
+      name: '',
+      lastname: '',
+      password: '', 
+      email: '',
+      active: true,
+      role: ['estudiante'] as ValidRoles[]
+    }
+
+    setSelectedUser(newUser);
+    setIsOpen(true);
+  }
 
   return (
     <main className="flex justify-center w-full my-6">
@@ -74,6 +87,10 @@ export const UsersTable = ( { users }: Props ) => {
             columnFilters={columnFilters}
             setColumnFilters={setColumnFilters}
           />
+
+          <button className="font-medium text-javeriana-blue-600 hover:underline" data-cy="create-btn" onClick={() => handleCreateUser()}>
+            Crear Usuario
+          </button>
         </div>
 
         {/* TABLE LAYOUT */}
@@ -169,6 +186,7 @@ export const UsersTable = ( { users }: Props ) => {
                   className="bg-white border-b max-w-xs hover:bg-gray-50 hover:cursor-pointer"
                   key={row.id}
                   onClick={() => openModal(row.original)}
+                  data-cy={`${row.original.name}`}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <td className="px-6 py-4" key={cell.id}>
@@ -218,11 +236,17 @@ export const UsersTable = ( { users }: Props ) => {
       </div>
 
       {/* Dialog */}
-      <UserTableDialog
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        user={selectedUser}
-      />
+      {
+        isOpen &&
+        <>
+          <UserTableDialog
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            user={selectedUser}
+          />
+        </>
+      }
+      
     </main>
   );
 };

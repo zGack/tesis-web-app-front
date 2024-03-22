@@ -3,22 +3,29 @@
 import { useRouter } from "next/navigation";
 
 import { STATUS_BADGES, StatusBadge } from "@/components";
-import { Anteproyecto } from "@/interfaces";
+import { Anteproyecto, User } from "@/interfaces";
 import { DialogDateBox, DialogLabelBox, DialogSection } from "@/components/projects/Dialog";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useState } from "react";
+import { AnteproyectoFileDeliveryDialog } from "./AnteproyectoFileDeliveryDialog";
 
 interface Props {
   anteproyecto: Anteproyecto;
+  user: Partial<User>;
 }
 
-const AnteproyectoSlugView = ( { anteproyecto }: Props ) => {
+const AnteproyectoSlugView = ( { anteproyecto, user }: Props ) => {
 
   const router = useRouter();
   
-  const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useState(false);
 
-  if ( !session?.user ) {
+  const openModal = (rowData: Anteproyecto) => {
+    setIsOpen(true);
+  };
+
+  if ( !user ) {
     router.replace('/login');
   }
 
@@ -29,8 +36,8 @@ const AnteproyectoSlugView = ( { anteproyecto }: Props ) => {
           <div className="flex flex-row justify-between items-center">
             <h1 className="font-semibold text-2xl mb-4">Anteproyecto</h1>
             {
-              anteproyecto.estado === 1 &&
-              <Link href={`/trabajo-de-grado/creacion?anteproyecto=${anteproyecto.slug}`} className="font-medium text-javeriana-blue-600 hover:underline" data-cy="create-btn">
+              (anteproyecto.estado === 1 && user.role?.includes('admin') ) &&
+              <Link data-cy="crear-trabajo" href={`/trabajo-de-grado/creacion?anteproyecto=${anteproyecto.slug}`} className="font-medium text-javeriana-blue-600 hover:underline">
                 Crear Trabajo de Grado
               </Link>
             }
@@ -99,11 +106,12 @@ const AnteproyectoSlugView = ( { anteproyecto }: Props ) => {
                 <h3 className="text-md font-semibold leading-6">Entregas</h3>
                 <hr className="h-px mb-3 mt-1 bg-gray-300 border-0 "></hr>
               {
-                (anteproyecto.noEntrega === 0)?
-                <div className="flex justify-center">
-                  <p className="italic text-sm">
+                (anteproyecto.estado === 0)?
+                <div className="flex flex-col justify-center">
+                  <p className="italic text-sm w-full">
                     No se han radicado entregas
                   </p>
+                  
                 </div>
 
                 :(
@@ -127,7 +135,27 @@ const AnteproyectoSlugView = ( { anteproyecto }: Props ) => {
                         />
                       </div>
                     </div>
-
+                    {
+                      (anteproyecto.estado !== 1 &&
+                        (
+                          user.role?.includes('estudiante') ||
+                          user.role?.includes('evaluador') ||
+                          user.role?.includes('admin')
+                        )
+                      ) &&
+                      <div>
+                        <button 
+                          type="button" 
+                          className="font-medium p-1 outline-sky-700 text-sky-700 hover:text-sky-900 inline-flex max-w-fit items-center text-center capitalize"
+                          onClick={() => setIsOpen(true)}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="mr-1 w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          Radicar Entrega
+                        </button>
+                      </div>
+                    }
                   </>
                 )
               }
@@ -143,12 +171,13 @@ const AnteproyectoSlugView = ( { anteproyecto }: Props ) => {
                   Volver
               </button>
               {
-                ( session!.user.role.includes('admin') ) &&
+                ( user.role?.includes('admin') ) &&
                 (
                 <button 
                   className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                   type="submit" 
                   onClick={() => router.push(`/anteproyecto/editar/${anteproyecto.slug}`)}
+                  data-cy="editar-anteproyecto"
                 >
                     Editar
                 </button>
@@ -157,6 +186,15 @@ const AnteproyectoSlugView = ( { anteproyecto }: Props ) => {
             </div>
         </div>
       </div>
+      {
+        isOpen &&
+        <AnteproyectoFileDeliveryDialog
+          anteproyecto={anteproyecto}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          user={user}
+        />
+      }
     </main>
   )
 }

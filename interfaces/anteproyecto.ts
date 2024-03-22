@@ -7,6 +7,8 @@ export interface Anteproyecto {
   fechaEntregaAEvaluador: Date | null;
   fechaEntregaDeEvaluador: Date | null;
   fechaAprobacion: Date | null;
+  documento: String | null;
+  correciones: String | null;
   estado: number;
   noEntrega: number;
   slug: string;

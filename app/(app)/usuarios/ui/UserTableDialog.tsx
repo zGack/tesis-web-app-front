@@ -1,11 +1,12 @@
 import { ChangeEvent, Fragment, useState } from 'react'
-import { useRouter } from 'next/navigation';
 
 import { Dialog, Transition } from "@headlessui/react";
 
 import {  User, ValidRoles } from '@/interfaces';
 import { DangerAlert } from '@/components/ui';
 import { useForm } from 'react-hook-form';
+import { createUpdateUser } from '@/actions';
+import { deleteUser } from '@/actions/users/delete-user';
 
 export type UserFormData = {
   name: string;
@@ -18,6 +19,7 @@ export type UserFormData = {
 
 interface Props {
   user: User;
+  dialogTitleLabel?: string;
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
 }
@@ -28,6 +30,7 @@ export const UserTableDialog = ({
     user,
     isOpen,
     setIsOpen,
+    dialogTitleLabel = 'Editar'
   }: Props) => {
     
   const [ checked, setChecked ] = useState<ValidRoles[]>([...user.role]);
@@ -47,6 +50,7 @@ export const UserTableDialog = ({
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<UserFormData>({
     defaultValues: {
@@ -55,7 +59,7 @@ export const UserTableDialog = ({
     },
   });
 
-  const handleSave = (data: UserFormData) => {
+  const handleSave = async (data: UserFormData) => {
     setShowErrorAlert(false);
 
     if ( checked.length === 0 ) {
@@ -64,7 +68,7 @@ export const UserTableDialog = ({
       return;
     }
 
-    if ( data.password !== data.confirmPassword ){
+    if ( data.password.length > 0 && data.password !== data.confirmPassword ){
       setErrorMsg('Las contraseñas no coinciden.');
       setShowErrorAlert(true);
       return;
@@ -73,10 +77,32 @@ export const UserTableDialog = ({
     const userToSubmit = {
       ...data,
       active: true,
-      users: [...checked]
+      role: [...checked],
+      password: data.password.length > 0 ? data.password : null,
+      id: user.id.length > 0 ? user.id : null 
     }
 
-    console.log(userToSubmit);
+    const resp = await createUpdateUser(JSON.stringify(userToSubmit));
+
+    if ( !resp.ok ) {
+      setErrorMsg('Error al crear/actualizar el usuario.');
+      setShowErrorAlert(true);
+      return;
+    }
+
+    setIsOpen(false);
+  }
+
+  const handleDeleteUser = async () => {
+    const resp = await deleteUser(user.id);
+
+    if ( !resp.ok ) {
+      setErrorMsg('Error al borrar el usuario.');
+      setShowErrorAlert(true);
+      return;
+    }
+
+    setIsOpen(false);
   }
 
   if ( !user ) { return (<></>)};
@@ -114,7 +140,7 @@ export const UserTableDialog = ({
                 >
                   <div className="flex flex-row justify-between items-center">
                     <div>
-                      Editar Usuario
+                      {`${dialogTitleLabel} Usuario`}
                     </div>
                   </div>
                 </Dialog.Title>
@@ -166,7 +192,7 @@ export const UserTableDialog = ({
                             className="bg-gray-50 border border-gray-300 outline-gray-400 text-gray-900 text-sm rounded-sm block w-full p-2.5"
                             placeholder="Nueva contraseña"
                             {...register(`password`, {
-                              required: false,
+                              validate: (value) => { if (user.id.length < 1 && !value) return 'Campo requerido' }
                             })}
                           />
                         </div>
@@ -176,8 +202,8 @@ export const UserTableDialog = ({
                             type="password"
                             className="bg-gray-50 border border-gray-300 outline-gray-400 text-gray-900 text-sm rounded-sm block w-full p-2.5"
                             placeholder="Repetir contraseña"
-                            {...register(`password`, {
-                              required: false,
+                            {...register(`confirmPassword`, {
+                              validate: (value) => { if (getValues('password') && !value) return 'Campo requerido' }
                             })}
                           />
                         </div>
@@ -192,6 +218,7 @@ export const UserTableDialog = ({
                                 type='checkbox' 
                                 checked={checked.includes(role)} 
                                 value={role} 
+                                data-cy={`${role}-role`}
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                                 onChange={handleCheck}
                               />
@@ -202,21 +229,35 @@ export const UserTableDialog = ({
                         </div>
                       </div>
                     </div>
-                    <div className="flex justify-end mt-4 space-x-3">
-                      <button 
-                        className="text-white bg-gray-500 hover:bg-gray-600 outline-gray-600 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center" 
-                        type="button" 
-                        onClick={() => setIsOpen(false)}
-                      >
-                          Volver
-                      </button>
-                      <button 
-                        className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
-                        type="submit" 
-                        // onClick={() => router.push(`/anteproyecto/${project.slug}`)}
-                      >
-                        Guardar
-                      </button>
+                    <div className='flex justify-between mt-4'>
+                      <div>
+                      {
+                        (user.id.length > 0) &&
+                        <button
+                          className="text-white bg-red-700 hover:bg-red-800 outline-red-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
+                          type="button"
+                          onClick={() => handleDeleteUser()}
+                        >
+                          Borrar
+                        </button>
+                      }
+                      </div>
+                      <div className="flex justify-end space-x-3">
+                        <button 
+                          className="text-white bg-gray-500 hover:bg-gray-600 outline-gray-600 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center" 
+                          type="button" 
+                          onClick={() => setIsOpen(false)}
+                        >
+                            Volver
+                        </button>
+                        <button 
+                          className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
+                          type="submit" 
+                          data-cy="guardar"
+                        >
+                          Guardar
+                        </button>
+                      </div>
                     </div>
                   </form>
                 </div>

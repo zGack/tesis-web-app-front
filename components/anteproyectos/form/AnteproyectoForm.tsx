@@ -128,8 +128,6 @@ const AnteproyectoForm = ({ anteproyecto, users, creacion = false }: Props) => {
       fechaAprobacion: ( isApproved && data.fechaAprobacion === undefined) ? new Date() : data.fechaAprobacion
     };
 
-    console.log(anteproyectoToSubmit);
-
     const response = await createUpdateAnteproyecto(JSON.stringify(anteproyectoToSubmit));
 
     if ( !response?.ok ) {
@@ -535,6 +533,7 @@ const AnteproyectoForm = ({ anteproyecto, users, creacion = false }: Props) => {
                   className="text-white bg-red-700 hover:bg-red-800 outline-red-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                   type="button"
                   onClick={() => onDeleteAnteproyecto()}
+                  data-cy="delete-anteproyecto-btn"
                 >
                   Borrar
                 </button>

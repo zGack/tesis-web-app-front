@@ -6,19 +6,21 @@ import { Dialog, Transition } from "@headlessui/react";
 
 import { STATUS_BADGES, StatusBadge } from "..";
 import { DialogDateBox, DialogLabelBox, DialogSection } from "./Dialog";
-import { Anteproyecto } from '@/interfaces';
+import { Anteproyecto, User } from '@/interfaces';
 import Link from 'next/link';
 
 interface Props {
   project: Anteproyecto;
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
+  user: Partial<User>
 }
 
 export const AnteproyectoTableDialog = ({ 
     project,
     isOpen,
     setIsOpen,
+    user,
   }: Props) => {
     
   const router = useRouter();
@@ -61,7 +63,7 @@ export const AnteproyectoTableDialog = ({
                       Anteproyecto
                     </div>
                     {
-                      project.estado === 1 &&
+                      ( project.estado === 1 && user.role!.includes('admin') ) &&
                       <Link href={`/trabajo-de-grado/creacion?anteproyecto=${project.slug}`} className="text-sm text-javeriana-blue-600 hover:underline" data-cy="create-btn">
                         Crear Trabajo de Grado
                       </Link>
@@ -167,6 +169,7 @@ export const AnteproyectoTableDialog = ({
                       className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                       type="button" 
                       onClick={() => router.push(`/anteproyecto/${project.slug}`)}
+                      data-cy="ver-anteproyecto"
                     >
                       Ver
                     </button>

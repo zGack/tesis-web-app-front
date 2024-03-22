@@ -2,7 +2,6 @@
 
 import { ValidRoles } from "@/interfaces";
 import prisma from "@/lib/prisma";
-import { SeedAnteproyecto } from "@/seed/seed";
 import { Anteproyecto, Role } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -39,7 +38,6 @@ const anteproyectoSchema = z.object({
     .object({ id: z.string().uuid(), role: z.nativeEnum(Role)})
     .array()
 });
-
 
 export const createUpdateAnteproyecto = async ( anteproyectoData: string ) => {
   

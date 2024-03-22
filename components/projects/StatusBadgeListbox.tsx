@@ -12,13 +12,13 @@ interface Props {
 export const StatusBadgeListbox = ({selectedStatus, setSelectedStatus}: Props) => {
   return (
     <div className="flex">
-      <span className="inline-flex whitespace-nowrap items-center px-3 text-sm text-gray-900 font-semibold bg-gray-200 border border-r-0 border-gray-300 rounded-l-sm max-w-min">
+      <span className="inline-flex whitespace-nowrap items-center h-min px-3 py-[10px] text-sm text-gray-900 font-semibold bg-gray-200 border border-r-0 border-gray-300 rounded-l-sm max-w-min">
         Estado
       </span>
       {/* Headless UI Listbox */}
       <div className="relative">
-        <Listbox value={selectedStatus} onChange={setSelectedStatus} name="anteproyectoStatus" >
-          <Listbox.Button className="relative w-full cursor-pointer border bg-gray-50 border-gray-300 rounded-sm py-2 pl-3 pr-10 text-left outline-gray-400">
+        <Listbox value={selectedStatus} onChange={setSelectedStatus} name="anteproyectoStatus">
+          <Listbox.Button className="relative w-full cursor-pointer border bg-gray-50 border-gray-300 rounded-sm py-2 pl-3 pr-10 text-left outline-gray-400" data-cy="estado-anteproyecto">
             <StatusBadge badgeType={selectedStatus} />
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-400">
@@ -37,6 +37,7 @@ export const StatusBadgeListbox = ({selectedStatus, setSelectedStatus}: Props) =
                 <Listbox.Option
                   key={status.name}
                   value={status}
+                  data-cy={`${status.name}`}
                   className={({active}) => 
                     `px-3 py-2 cursor-pointer hover:bg-blue-100 ${
                       active ? 'bg-blue-100' : ''

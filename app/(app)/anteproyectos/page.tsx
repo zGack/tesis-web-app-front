@@ -33,7 +33,7 @@ export default async function Anteproyectos() {
             </div>
           </main>
         ) : (
-          <AnteproyectosTable anteproyectos={anteproyectos} />
+          <AnteproyectosTable anteproyectos={anteproyectos} user={session.user} />
         )
       }
     </>

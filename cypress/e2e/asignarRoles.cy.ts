@@ -1,0 +1,15 @@
+describe('template spec', () => {
+  it('passes', () => {
+    cy.visit('/login')
+    cy.get('[data-cy="email-input"]').type('admin@admin.com')
+    cy.get('[data-cy="password-input"]').type('123123')
+    cy.get('[data-cy="login-button"]').click()
+    cy.get('[data-ct="usuarios-card"]').click()
+    cy.get('[data-cy="search-user"]').type('Samantha')
+    cy.get('[data-cy="Samantha"]').click()
+    cy.get('[data-cy="director-role"]').check()
+    cy.get('[data-cy="jurado-role"]').check()
+    cy.get('[data-cy="guardar"]').click()
+    cy.get('[data-cy="search-user"]').clear()
+  })
+})

@@ -107,45 +107,39 @@ const TrabajoDeGradoView = ( { trabajoDeGrado }: Props ) => {
                   role='jurado'
                 />
 
-
-              {/* Entregas */}
-              {/* <div className="flex flex-col">
-                <h3 className="text-md font-semibold leading-6">Entregas</h3>
-                <hr className="h-px mb-3 mt-1 bg-gray-300 border-0 "></hr>
-              {
-                (trabajoDeGrado.noEntrega === 0)?
-                <div className="flex justify-center">
-                  <p className="italic text-sm">
-                    No se han radicado entregas
-                  </p>
-                </div>
-
-                :(
-                  <>
-                    <div className="grid grid-cols-5 gap-y-4 pl-3">
-                      <DialogLabelBox
-                        label="Entrega #"
-                      >
-                        { trabajoDeGrado.noEntrega }
-                      </DialogLabelBox> 
-                      <div className='col-span-2'>
-                        <DialogDateBox
-                          date={trabajoDeGrado.fechaEntregaAEvaluador}
-                          title="Fecha de entrega al evaluador"
-                        />
-                      </div>
-                      <div className='col-span-2'>
-                        <DialogDateBox
-                          date={trabajoDeGrado.fechaEntregaDeEvaluador}
-                          title="Fecha de respuesta del evaluador"
-                        />
-                      </div>
+                <div className="flex flex-col">
+                  <h3 className="text-md font-semibold leading-6">Documentos</h3>
+                  <hr className="h-px mb-3 mt-1 bg-gray-300 border-0 "></hr>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-900">Documento de Final</label>
+                      <input 
+                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                        type="file"
+                        accept='.pdf'
+                      />
+                      <p className="mt-1 text-sm text-gray-500">Solo documentos PDF.</p>
                     </div>
-
-                  </>
-                )
-              }
-              </div> */}
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-900">Licencia de Autorización</label>
+                      <input 
+                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                        type="file"
+                        accept='.pdf'
+                      />
+                      <p className="mt-1 text-sm text-gray-500">Solo documentos PDF.</p>
+                    </div>
+                    <div>
+                      <label className="block mb-2 text-sm font-medium text-gray-900">Artículo Científico</label>
+                      <input 
+                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                        type="file"
+                        accept='.pdf'
+                      />
+                      <p className="mt-1 text-sm text-gray-500">Solo documentos PDF.</p>
+                    </div>
+                  </div>
+                </div>
             </div>
 
             <div className="flex justify-end mt-6 gap-x-2">
@@ -163,6 +157,7 @@ const TrabajoDeGradoView = ( { trabajoDeGrado }: Props ) => {
                   className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                   type="submit" 
                   onClick={() => router.push(`/trabajo-de-grado/editar/${trabajoDeGrado.slug}`)}
+                  data-cy="editar-trabajo"
                 >
                     Editar
                 </button>

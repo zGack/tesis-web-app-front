@@ -140,6 +140,7 @@ export const TrabajoDeGradoTableDialog = ({
                       className="text-white bg-sky-700 hover:bg-sky-800 outline-sky-900 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center "
                       type="button" 
                       onClick={() => router.push(`/trabajo-de-grado/${project.slug}`)}
+                      data-cy="ver-trabajo"
                     >
                       Ver
                     </button>

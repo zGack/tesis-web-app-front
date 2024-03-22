@@ -48,22 +48,27 @@ model Anteproyecto {
   noEntrega               Int
   slug                    String                 @unique
   users                   UsersOnAnteproyectos[]
+  documento               String?
+  correciones             String?
   TrabajoDeGrado          TrabajoDeGrado?
 
   @@index([titulo, slug])
 }
 
 model TrabajoDeGrado {
-  id                String    @id @default(uuid())
-  periodo           String
-  noAct             Int
-  titulo            String    @unique
-  mensionHonor      Boolean
-  notaDefinitiva    Float?
-  gradoPostular     Grado     @default(pregrado)
-  fechaCreacion     DateTime
-  fechaSustentacion DateTime?
-  slug              String    @unique
+  id                   String    @id @default(uuid())
+  periodo              String
+  noAct                Int
+  titulo               String    @unique
+  mensionHonor         Boolean
+  notaDefinitiva       Float?
+  gradoPostular        Grado     @default(pregrado)
+  fechaCreacion        DateTime
+  fechaSustentacion    DateTime?
+  slug                 String    @unique
+  documentoFinal       String?
+  licenciaAutorizacion String?
+  articuloCientifico   String?
 
   anteproyecto   Anteproyecto @relation(fields: [anteproyectoId], references: [id])
   anteproyectoId String       @unique

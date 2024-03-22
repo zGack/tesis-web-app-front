@@ -133,6 +133,7 @@ const TrabajoGradoTable = ({ trabajosDegrado }: Props) => {
                   className="bg-white border-b max-w-xs hover:bg-gray-50 hover:cursor-pointer" 
                   key={row.id} 
                   onClick={() => openModal(row.original)}
+                  data-cy={`${row.original.titulo}`}
                 >
                   {
                     row.getVisibleCells().map((cell) => (

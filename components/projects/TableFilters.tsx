@@ -39,6 +39,7 @@ const TableFilters = ({
           placeholder={`Buscar ${placeholderLabel} por Título`} 
           value={(projectTitle ?? '') as string}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onSearchInputChange({id: "titulo", value: e.target.value})}
+          data-cy="search-input"
         />
       </div>
 
@@ -47,10 +48,10 @@ const TableFilters = ({
         <StatusFilterPopover columnFilters={columnFilters} setColumnFilters={setColumnFilters} />
       }
 
-      <div className="flex items-center ">
+      {/* <div className="flex items-center ">
           <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 "/>
           <label className="ms-2 text-sm font-medium text-gray-900">Mostrar mis anteproyectos</label>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -30,6 +30,7 @@ const UsersTableFilters = ({
         </div>
         <input 
           type="text" 
+          data-cy="search-user"
           className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 hover:border-gray-400 outline-gray-400 rounded-md w-80 bg-gray-50" 
           placeholder={`Buscar Usuarios por nombre`} 
           value={(userName ?? '') as string}

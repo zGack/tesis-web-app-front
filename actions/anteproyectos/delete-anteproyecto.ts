@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import { z } from "zod";
-import { deleteTrabajoDeGrado } from "../trabajosDeGrado/delete-trabajo-de-grado";
 
 export const deleteAnteproyecto = async ( id: string ) => {
   
